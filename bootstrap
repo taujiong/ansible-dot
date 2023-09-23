@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# early stop when command failed
+set -e
+
+function command_exist() {
+  command -v "$1" &> /dev/null
+}
+
+# ensure homebrew installed
+command_exist brew || {
+  echo "brew not found, installing homebrew"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+}
+
+# ensure ansible installed
+command_exist ansible || {
+  echo "ansible not found, installing ansible"
+  brew install ansible
+}
+
+# run ansible
+echo "bootstrap with ansible"
+ansible-playbook ./playbooks/setup.yml -i inventory
+
+echo "Mission Complete!"

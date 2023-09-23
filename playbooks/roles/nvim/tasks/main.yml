@@ -1,0 +1,12 @@
+- name: Install neovim and tools
+  community.general.homebrew:
+    name: "{{ item }}"
+  when: item not in installed_brew_formulae.stdout_lines
+  loop:
+    - neovim
+
+- name: Link config
+  ansible.builtin.file:
+    src: '{{ ansible_env.PWD }}/roles/nvim/files'
+    dest: ~/.config/nvim
+    state: link
