@@ -1,3 +1,4 @@
+---@type LazySpec
 return {
 	"folke/which-key.nvim",
 	event = "VeryLazy",
@@ -6,6 +7,9 @@ return {
 		plugins = {
 			marks = false,
 			registers = false,
+		},
+		icons = {
+			group = "",
 		},
 	},
 	config = function(_, opts)

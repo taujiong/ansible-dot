@@ -1,6 +1,7 @@
+---@type LazySpec
 return {
 	"kyazdani42/nvim-tree.lua",
-	cmd = { "NvimTreeToggle", "NvimTreeOpen", "NvimTreeFocus", "NvimTreeFindFileToggle" },
+	event = "VeryLazy",
 	-- for all available options, refer to `:help nvim-tree-opts`
 	opts = {
 		auto_reload_on_write = false,

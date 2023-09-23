@@ -1,6 +1,7 @@
 local options = {
-	---@type vim.go
-	go = {
+	---@type vim.go | vim.wo | vim.bo
+	o = {
+		-- go
 		backspace = "indent,eol,start,nostop",
 		clipboard = "unnamedplus",
 		cmdheight = 0,
@@ -12,7 +13,7 @@ local options = {
 		laststatus = 3,
 		mouse = "a",
 		pumheight = 10,
-		shortmess = "filnxstTI",
+		shortmess = "filnxsoOFtTI",
 		showmode = false,
 		showtabline = 1,
 		smartcase = true,
@@ -25,9 +26,7 @@ local options = {
 		wildmenu = true,
 		wildmode = "longest:list,full",
 		writebackup = false,
-	},
-	---@type vim.wo
-	wo = {
+		-- wo
 		breakindent = false,
 		cursorline = true,
 		fillchars = "eob: ",
@@ -45,9 +44,7 @@ local options = {
 		signcolumn = "yes",
 		virtualedit = "block",
 		wrap = true,
-	},
-	---@type vim.bo
-	bo = {
+		-- bo
 		expandtab = true,
 		fileencoding = "utf-8",
 		infercase = true,
