@@ -1,0 +1,71 @@
+local options = {
+	---@type vim.go
+	go = {
+		backspace = "indent,eol,start,nostop",
+		clipboard = "unnamedplus",
+		cmdheight = 0,
+		completeopt = "menu,preview,noselect",
+		diffopt = "internal,filler,closeoff,linematch:60",
+		foldlevelstart = 99,
+		history = 100,
+		ignorecase = true,
+		laststatus = 3,
+		mouse = "a",
+		pumheight = 10,
+		shortmess = "filnxstTI",
+		showmode = false,
+		showtabline = 1,
+		smartcase = true,
+		splitbelow = true,
+		splitright = true,
+		termguicolors = true,
+		timeoutlen = 500,
+		titlestring = "%t - nvim",
+		updatetime = 300,
+		wildmenu = true,
+		wildmode = "longest:list,full",
+		writebackup = false,
+	},
+	---@type vim.wo
+	wo = {
+		breakindent = false,
+		cursorline = true,
+		fillchars = "eob: ",
+		foldenable = true,
+		foldlevel = 99,
+		foldcolumn = "1",
+		linebreak = true,
+		list = true,
+		listchars = "tab:│→,extends:⟩,precedes:⟨,trail:·,nbsp:␣",
+		number = true,
+		relativenumber = true,
+		scrolloff = 8,
+		showbreak = "↪ ",
+		sidescrolloff = 8,
+		signcolumn = "yes",
+		virtualedit = "block",
+		wrap = true,
+	},
+	---@type vim.bo
+	bo = {
+		expandtab = true,
+		fileencoding = "utf-8",
+		infercase = true,
+		shiftwidth = 2,
+		swapfile = false,
+		tabstop = 2,
+		undofile = true,
+	},
+	g = {
+		mapleader = " ",
+		maplocalleader = " ",
+		loaded_netrw = 1,
+		loaded_netrwPlugin = 1,
+	},
+}
+
+for scope, table in pairs(options) do
+	for setting, value in pairs(table) do
+		vim[scope][setting] = value
+	end
+end
