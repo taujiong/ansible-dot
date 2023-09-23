@@ -5,6 +5,8 @@
 --   - `:help lua-loader`
 vim.loader.enable()
 
+require("user.options")
+
 -- ensure lazy.nvim is ready
 local lazy_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 -- TODO: remove `vim.loop` when neovim drop it
@@ -31,6 +33,9 @@ require("lazy").setup({
     enabled = true,
     frequency = 7 * 24 * 60 * 60,
   },
+  install = {
+    colorscheme = { "catppuccin" }
+  },
   change_detection = {
     notify = false,
   },
@@ -40,3 +45,5 @@ require("lazy").setup({
     },
   },
 })
+
+vim.cmd.colorscheme("catppuccin")
