@@ -4,6 +4,7 @@ return {
 	"hrsh7th/nvim-cmp",
 	event = "InsertEnter",
 	dependencies = {
+		"hrsh7th/cmp-nvim-lsp",
 		"saadparwaiz1/cmp_luasnip",
 		"hrsh7th/cmp-path",
 		"hrsh7th/cmp-buffer",
@@ -25,6 +26,7 @@ return {
 				end,
 			},
 			sources = {
+				{ name = "nvim_lsp", priority = 1000 },
 				{ name = "luasnip", priority = 750 },
 				{ name = "emoji", priority = 700 },
 				{ name = "path", priority = 650 },

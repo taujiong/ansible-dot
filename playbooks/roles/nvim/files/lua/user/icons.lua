@@ -1,4 +1,5 @@
 return {
+	ActiveLSP = "",
 	Kinds = {
 		Array = " ",
 		Boolean = " ",
