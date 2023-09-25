@@ -20,12 +20,36 @@ local on_lsp_attach = function(_, bufnr)
 end
 
 local setup_server_handler = function()
+	local lspconfig = require("lspconfig")
 	local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 	require("mason-lspconfig").setup_handlers({
 		function(server_name)
-			require("lspconfig")[server_name].setup({
+			lspconfig[server_name].setup({
 				capabilities = cmp_capabilities,
 				on_attach = on_lsp_attach,
+			})
+		end,
+		jsonls = function(server_name)
+			local schemastore = require("schemastore")
+			lspconfig[server_name].setup({
+				capabilities = cmp_capabilities,
+				settings = {
+					json = {
+						schemas = schemastore.json.schemas(),
+						validate = { enable = true },
+					},
+				},
+			})
+		end,
+		yamlls = function(server_name)
+			local schemastore = require("schemastore")
+			lspconfig[server_name].setup({
+				capabilities = cmp_capabilities,
+				settings = {
+					yaml = {
+						schemas = schemastore.yaml.schemas(),
+					},
+				},
 			})
 		end,
 	})
