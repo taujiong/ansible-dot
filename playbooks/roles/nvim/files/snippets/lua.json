@@ -1,0 +1,20 @@
+{
+  "Lazy Spec": {
+    "prefix": [
+      "lazy"
+    ],
+    "description": "create single lazy spec to install plugins",
+    "body": [
+      "---@type LazySpec",
+      "return {",
+      "\t\"${1:plugin name},\"",
+      "\tevent = \"VeryLazy\",",
+      "\t---@type",
+      "\t-- for all available options, refer to",
+      "\topts = {",
+      "\t\t${0}",
+      "\t},",
+      "}"
+    ]
+  }
+}

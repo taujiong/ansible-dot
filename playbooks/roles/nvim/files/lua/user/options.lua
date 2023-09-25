@@ -5,7 +5,6 @@ local options = {
 		backspace = "indent,eol,start,nostop",
 		clipboard = "unnamedplus",
 		cmdheight = 0,
-		completeopt = "menu,preview,noselect",
 		diffopt = "internal,filler,closeoff,linematch:60",
 		foldlevelstart = 99,
 		history = 100,

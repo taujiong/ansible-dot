@@ -1,6 +1,9 @@
 ---@type LazySpec
 return {
 	"kyazdani42/nvim-tree.lua",
+	dependencies = {
+		"nvim-tree/nvim-web-devicons",
+	},
 	event = "VeryLazy",
 	-- for all available options, refer to `:help nvim-tree-opts`
 	opts = {
