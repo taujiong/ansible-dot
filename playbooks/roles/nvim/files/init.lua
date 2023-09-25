@@ -28,10 +28,6 @@ vim.opt.rtp:prepend(lazy_path)
 require("lazy").setup({
 	spec = { import = "user.plugins" },
 	lockfile = vim.fn.stdpath("data") .. "/lazy-lock.json",
-	checker = {
-		enabled = true,
-		frequency = 7 * 24 * 60 * 60,
-	},
 	install = {
 		colorscheme = { "catppuccin" },
 	},
