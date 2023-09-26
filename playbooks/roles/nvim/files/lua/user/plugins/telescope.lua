@@ -38,11 +38,14 @@ return {
 					n = { q = actions.close },
 				},
 			},
+      extensions = {
+        fzf = {}
+      }
 		}
 	end,
 	config = function(_, opts)
 		local telescope = require("telescope")
 		telescope.setup(opts)
-		-- telescope.load_extension("telescope-fzf-native.nvim")
+    telescope.load_extension("fzf")
 	end,
 }
