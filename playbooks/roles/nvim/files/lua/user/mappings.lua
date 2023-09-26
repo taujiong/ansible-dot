@@ -92,6 +92,7 @@ wk.register({
 		S = { require("gitsigns").state_buffer, "Stage git buffer" },
 		u = { require("gitsigns").undo_stage_hunk, "Unstage git buffer" },
 		d = { require("gitsigns").diffthis, "View git diff" },
+		g = { require("neogit").open, "Open git" },
 		b = {
 			function()
 				require("telescope.builtin").git_branches({ use_file_path = true })
