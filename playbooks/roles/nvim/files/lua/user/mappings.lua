@@ -40,7 +40,7 @@ wk.register({
 }, { mode = "v" })
 
 wk.register({
-	e = { "<cmd>NvimTreeToggle<cr>", "Toggle explorer" },
+	e = { require("nvim-tree.api").tree.toggle, "Toggle explorer" },
 	q = { "<cmd>q<cr>", "Quit" },
 	i = { desc = "Toggle cursor word" },
 }, { prefix = "<leader>" })
@@ -48,14 +48,14 @@ wk.register({
 wk.register({
 	dm = {
 		name = "marks",
-		l = { "<plug>(Marks-deleteline)<cr>", "Delete marks on current line" },
-		f = { "<plug>(Marks-deletebuf)<cr>", "Delete marks on current file" },
+		l = { require("marks").delete_line, "Delete marks on current line" },
+		f = { require("marks").delete_buf, "Delete marks on current file" },
 	},
 	m = {
 		name = "Marks",
-		m = { "<plug>(Marks-toggle)<cr>", "Toggle mark" },
-		["["] = { "<plug>(Marks-prev)<cr>", "Go to previous mark" },
-		["]"] = { "<plug>(Marks-next)<cr>", "Go to next mark" },
+		m = { require("marks").toggle, "Toggle mark" },
+		["["] = { require("marks").prev, "Go to previous mark" },
+		["]"] = { require("marks").next, "Go to next mark" },
 	},
 })
 
@@ -92,6 +92,24 @@ wk.register({
 		S = { require("gitsigns").state_buffer, "Stage git buffer" },
 		u = { require("gitsigns").undo_stage_hunk, "Unstage git buffer" },
 		d = { require("gitsigns").diffthis, "View git diff" },
+		b = {
+			function()
+				require("telescope.builtin").git_branches({ use_file_path = true })
+			end,
+			"Show git branches",
+		},
+		c = {
+			function()
+				require("telescope.builtin").git_commits({ use_file_path = true })
+			end,
+			"Show git commits for current repository",
+		},
+		C = {
+			function()
+				require("telescope.builtin").git_bcommits({ use_file_path = true })
+			end,
+			"Show git commits for current buffer",
+		},
 	},
 }, { prefix = "<leader>" })
 
@@ -112,5 +130,29 @@ wk.register({
 		g = { "<cmd>LspLog<cr>", "Show lsp log" },
 		i = { "<cmd>LspInfo<cr>", "Show lsp information" },
 		m = { "<cmd>LspRestart<cr>", "Restart lsp" },
+	},
+}, { prefix = "<leader>" })
+
+wk.register({
+	f = {
+		name = icons.Search .. " Find",
+		["<cr>"] = { require("telescope.builtin").resume, "Resume previous search" },
+		["'"] = { require("telescope.builtin").marks, "Find marks" },
+		w = { require("telescope.builtin").live_grep, "Find words" },
+		c = { require("telescope.builtin").grep_string, "Find word under cursor" },
+		C = { require("telescope.builtin").commands, "Find commands" },
+		f = { require("telescope.builtin").find_files, "Find files" },
+		F = {
+			function()
+				require("telescope.builtin").find_files({ hidden = true, no_ignore = true })
+			end,
+			"Find all files",
+		},
+		h = { require("telescope.builtin").help_tags, "Find help" },
+		m = { require("telescope.builtin").man_pages, "Find man" },
+		n = { "<cmd>Noice telescope<cr>", "Find notifications" },
+		o = { require("telescope.builtin").oldfiles, "Find history" },
+		r = { require("telescope.builtin").registers, "Find registers" },
+		p = { require("telescope.builtin").builtin, "Find all pickers" },
 	},
 }, { prefix = "<leader>" })

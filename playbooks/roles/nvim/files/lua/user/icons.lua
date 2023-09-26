@@ -39,4 +39,6 @@ return {
 		Variable = " ",
 	},
 	Package = "󰏖",
+	Search = "",
+	Selected = "❯",
 }
