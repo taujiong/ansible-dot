@@ -1,5 +1,6 @@
 return {
 	ActiveLSP = "",
+	Git = "󰊢",
 	Kinds = {
 		Array = " ",
 		Boolean = " ",

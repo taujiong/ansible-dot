@@ -80,6 +80,22 @@ wk.register({
 })
 
 wk.register({
+	["]g"] = { require("gitsigns").next_hunk, "Next git hunk", { prefix = "" } },
+	["[g"] = { require("gitsigns").prev_hunk, "Previous git hunk", { prefix = "" } },
+	g = {
+		name = icons.Git .. " Git",
+		l = { require("gitsigns").blame_line, "View git blame" },
+		p = { require("gitsigns").preview_hunk, "Preview git hunk" },
+		h = { require("gitsigns").reset_hunk, "Reset git hunk" },
+		H = { require("gitsigns").reset_buffer, "Reset git buffer" },
+		s = { require("gitsigns").stage_hunk, "Stage git hunk" },
+		S = { require("gitsigns").state_buffer, "Stage git buffer" },
+		u = { require("gitsigns").undo_stage_hunk, "Unstage git buffer" },
+		d = { require("gitsigns").diffthis, "View git diff" },
+	},
+}, { prefix = "<leader>" })
+
+wk.register({
 	p = {
 		name = icons.Package .. " Packages",
 		m = { "<cmd>Mason<cr>", "Show mason packages" },
