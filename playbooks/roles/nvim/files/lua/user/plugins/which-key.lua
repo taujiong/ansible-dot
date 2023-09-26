@@ -4,12 +4,12 @@ return {
 	event = "VeryLazy",
 	---@type Options
 	opts = {
-		plugins = {
-			marks = false,
-			registers = false,
-		},
 		icons = {
 			group = "",
+		},
+		operators = {
+			s = true,
+			gb = true,
 		},
 	},
 	config = function(_, opts)

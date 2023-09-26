@@ -16,7 +16,13 @@ wk.register({
 	["<c-k>"] = { "<c-w>k", "Go to upper window" },
 	["<c-l>"] = { "<c-w>l", "Go to right window" },
 	["<c-s>"] = { "<cmd>w<cr>", "Save file" },
-	["<esc>"] = { "<cmd>noh<esc>", "Clear highlight" },
+	["<c-/>"] = {
+		function()
+			require("Comment.api").toggle.linewise.count(vim.v.count > 0 and vim.v.count or 1)
+		end,
+		"Toggle comment line",
+	},
+	["<esc>"] = { "<cmd>noh<esc>", "Clear HIGhlight" },
 })
 
 wk.register({
@@ -27,9 +33,51 @@ wk.register({
 }, { mode = "i" })
 
 wk.register({
+	["<c-/>"] = {
+		"<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
+		"Toggle comment for selection",
+	},
+}, { mode = "v" })
+
+wk.register({
 	e = { "<cmd>NvimTreeToggle<cr>", "Toggle explorer" },
 	q = { "<cmd>q<cr>", "Quit" },
+	i = { desc = "Toggle cursor word" },
 }, { prefix = "<leader>" })
+
+wk.register({
+	dm = {
+		name = "marks",
+		l = { "<plug>(Marks-deleteline)<cr>", "Delete marks on current line" },
+		f = { "<plug>(Marks-deletebuf)<cr>", "Delete marks on current file" },
+	},
+	m = {
+		name = "Marks",
+		m = { "<plug>(Marks-toggle)<cr>", "Toggle mark" },
+		["["] = { "<plug>(Marks-prev)<cr>", "Go to previous mark" },
+		["]"] = { "<plug>(Marks-next)<cr>", "Go to next mark" },
+	},
+})
+
+wk.register({
+	s = { require("substitute").operator, "Replace with {motion}" },
+	ss = { require("substitute").line, "Replace with line" },
+	p = { require("substitute").visual, "Replace in visual", { mode = "v" } },
+	sx = { require("substitute.exchange").operator, "Exchange with {motion}" },
+	sxx = { require("substitute.exchange").line, "Exchange with line" },
+	sxc = { require("substitute.exchange").cancel, "Exchange exchange" },
+	X = { require("substitute.exchange").visual, "Exchange in visual", { mode = "v" } },
+})
+
+wk.register({
+	z = {
+		R = { require("ufo").openAllFolds, "Open all folds" },
+		M = { require("ufo").closeAllFolds, "Close all folds" },
+		r = { require("ufo").openFoldsExceptKinds, "Fold less" },
+		m = { require("ufo").closeFoldsWith, "Fold more" },
+		p = { require("ufo").peekFoldedLinesUnderCursor, "Peek fold" },
+	},
+})
 
 wk.register({
 	p = {
