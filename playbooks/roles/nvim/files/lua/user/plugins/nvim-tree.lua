@@ -33,7 +33,7 @@ return {
       },
     },
     filters = {
-      custom = { "^\\.git$" },
+      custom = { "^\\.git$", },
     },
     actions = {
       open_file = {
@@ -50,4 +50,10 @@ return {
       },
     },
   },
+  config = function(_, opts)
+    require("nvim-tree").setup(opts)
+    require("which-key").register({
+      ["<leader>e"] = { require("nvim-tree.api").tree.toggle, "Toggle explorer", },
+    })
+  end,
 }

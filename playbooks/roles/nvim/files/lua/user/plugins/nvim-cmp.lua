@@ -11,6 +11,7 @@ return {
     "hrsh7th/cmp-calc",
     "hrsh7th/cmp-emoji",
   },
+  -- for all available options, refer to `:help cmp-config`
   opts = function()
     local cmp = require("cmp")
     local luasnip = require("luasnip")
@@ -18,7 +19,7 @@ return {
     ---@type cmp.ConfigSchema
     return {
       completion = {
-        autocomplete = { "InsertEnter", "TextChanged" },
+        autocomplete = { "InsertEnter", "TextChanged", },
       },
       snippet = {
         expand = function(args)
@@ -26,19 +27,19 @@ return {
         end,
       },
       sources = {
-        { name = "nvim_lsp", priority = 1000 },
-        { name = "luasnip",  priority = 750 },
-        { name = "emoji",    priority = 700 },
-        { name = "path",     priority = 650 },
-        { name = "calc",     priority = 500 },
-        { name = "buffer",   priority = 250 },
+        { name = "nvim_lsp", priority = 1000, },
+        { name = "luasnip",  priority = 750, },
+        { name = "emoji",    priority = 700, },
+        { name = "path",     priority = 650, },
+        { name = "calc",     priority = 500, },
+        { name = "buffer",   priority = 250, },
       },
       mapping = cmp.mapping.preset.insert({
-        ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-        ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-        ["<C-Space>"] = cmp.mapping.complete(),
-        ["<C-c>"] = cmp.mapping.abort(),
-        ["<cr>"] = cmp.mapping.confirm({ select = true }),
+        ["<c-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select, }),
+        ["<c-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select, }),
+        ["<c-space>"] = cmp.mapping.complete(),
+        ["<c-c>"] = cmp.mapping.abort(),
+        ["<cr>"] = cmp.mapping.confirm({ select = true, }),
         ["<tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.confirm({
@@ -51,7 +52,7 @@ return {
             fallback()
           end
         end),
-        ["<S-Tab>"] = cmp.mapping(function(fallback)
+        ["<s-tab>"] = cmp.mapping(function(fallback)
           if luasnip.jumpable(-1) then
             luasnip.jump(-1)
           else
@@ -60,7 +61,7 @@ return {
         end),
       }),
       formatting = {
-        fields = { "kind", "menu", "abbr" },
+        fields = { "kind", "menu", "abbr", },
         format = function(_, item)
           local icons = require("user.icons").Kinds
           if icons[item.kind] then

@@ -8,14 +8,15 @@ return {
     "nvim-treesitter/nvim-treesitter-textobjects",
     "windwp/nvim-ts-autotag",
   },
+  -- for all available options, refer to `:help nvim-treesitter-quickstart`
   ---@type TSConfig
   ---@diagnostic disable-next-line: missing-fields
   opts = {
-    ensure_installed = { "bash", "markdown", "markdown_inline", "regex", "vim" },
+    ensure_installed = { "bash", "markdown", "markdown_inline", "regex", "vim", },
     auto_install = true,
-    autotag = { enable = true },
-    highlight = { enable = true },
-    indent = { enable = true },
+    autotag = { enable = true, },
+    highlight = { enable = true, },
+    indent = { enable = true, },
     context_commentstring = {
       enable = true,
       enable_autocmd = false,

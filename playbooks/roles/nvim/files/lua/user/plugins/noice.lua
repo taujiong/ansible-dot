@@ -2,7 +2,8 @@
 return {
   "folke/noice.nvim",
   event = "VeryLazy",
-  dependencies = { "MunifTanjim/nui.nvim" },
+  dependencies = { "MunifTanjim/nui.nvim", },
+  -- for all available options, refer to `:help noice.nvim-noice-(nice,-noise,-notice)-configuration`
   ---@type NoiceConfig
   opts = {
     lsp = {
@@ -31,21 +32,34 @@ return {
           kind = "",
           find = "written",
         },
-        opts = { skip = true },
+        opts = { skip = true, },
       },
     },
   },
+  config = function(_, opts)
+    require("noice").setup(opts)
+    require("which-key").register({
+      ["<leader>fn"] = { "<cmd>Noice telescope<cr>", "Find notifications", },
+    })
+  end,
   init = function()
-    vim.keymap.set({ "n", "i", "s" }, "<c-d>", function()
-      if not require("noice.lsp").scroll(4) then
-        return "<c-d>"
-      end
-    end, { silent = true, expr = true, desc = "Scroll down" })
-
-    vim.keymap.set({ "n", "i", "s" }, "<c-u>", function()
-      if not require("noice.lsp").scroll(-4) then
-        return "<c-u>"
-      end
-    end, { silent = true, expr = true, desc = "Scroll up" })
+    require("which-key").register({
+      ["<c-d>"] = {
+        function()
+          if not require("noice.lsp").scroll(4) then
+            return "<c-d>"
+          end
+        end,
+        "Scroll down",
+      },
+      ["<c-u>"] = {
+        function()
+          if not require("noice.lsp").scroll(-4) then
+            return "<c-u>"
+          end
+        end,
+        "Scroll up",
+      },
+    }, { mode = { "n", "i", "s", }, expr = true, })
   end,
 }

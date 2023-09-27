@@ -6,7 +6,8 @@
       "Lua.workspace.checkThirdParty": false,
       "Lua.format.defaultConfig": {
         "end_of_line": "lf",
-        "table_separator_style": "comma"
+        "table_separator_style": "comma",
+        "trailing_table_separator": "always"
       }
     }
   }

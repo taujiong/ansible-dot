@@ -7,12 +7,10 @@
     "body": [
       "---@type LazySpec",
       "return {",
-      "\t\"${1:plugin name},\"",
+      "\t\"${1:plugin name}\",",
       "\tevent = \"VeryLazy\",",
-      "\t---@type",
-      "\t-- for all available options, refer to",
-      "\topts = {",
-      "\t\t${0}",
+      "\t-- for all available options, refer to:",
+      "\topts = {${0}},",
       "\t},",
       "}"
     ]

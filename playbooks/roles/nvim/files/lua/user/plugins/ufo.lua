@@ -1,10 +1,11 @@
 ---@type LazySpec
 return {
   "kevinhwang91/nvim-ufo",
-  event = { "BufEnter" },
+  event = "BufEnter",
   dependencies = {
     "kevinhwang91/promise-async",
   },
+  -- for all available options, refer to `:help nvim-ufo.txt`
   ---@type UfoConfig
   opts = {
     preview = {
@@ -37,4 +38,16 @@ return {
           end
     end,
   },
+  config = function(_, opts)
+    require("ufo").setup(opts)
+    require("which-key").register({
+      z = {
+        R = { require("ufo").openAllFolds, "Open all folds", },
+        M = { require("ufo").closeAllFolds, "Close all folds", },
+        r = { require("ufo").openFoldsExceptKinds, "Fold less", },
+        m = { require("ufo").closeFoldsWith, "Fold more", },
+        p = { require("ufo").peekFoldedLinesUnderCursor, "Peek fold", },
+      },
+    })
+  end,
 }

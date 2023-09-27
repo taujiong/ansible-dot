@@ -8,6 +8,7 @@ return {
     "folke/neodev.nvim",
     "b0o/SchemaStore.nvim",
   },
+  -- for all available options, refer to `:help mason-lspconfig-settings`
   ---@type MasonLspconfigSettings
   opts = {
     automatic_installation = true,

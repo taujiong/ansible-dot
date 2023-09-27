@@ -26,17 +26,17 @@ vim.opt.rtp:prepend(lazy_path)
 
 -- ask lazy.nvim to bootstrap my plugins
 require("lazy").setup({
-  spec = { import = "user.plugins" },
+  spec = { import = "user.plugins", },
   lockfile = vim.fn.stdpath("data") .. "/lazy-lock.json",
   install = {
-    colorscheme = { "catppuccin" },
+    colorscheme = { "catppuccin", },
   },
   change_detection = {
     notify = false,
   },
   performance = {
     rtp = {
-      disabled_plugins = { "tohtml", "gzip", "zipPlugin", "netrwPlugin", "tarPlugin" },
+      disabled_plugins = { "tohtml", "gzip", "zipPlugin", "netrwPlugin", "tarPlugin", },
     },
   },
 })

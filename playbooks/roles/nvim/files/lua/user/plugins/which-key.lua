@@ -2,6 +2,7 @@
 return {
   "folke/which-key.nvim",
   event = "VeryLazy",
+  -- for all available options, refer to `:help `
   ---@type Options
   opts = {
     icons = {
