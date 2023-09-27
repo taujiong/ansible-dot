@@ -57,6 +57,11 @@ local options = {
     maplocalleader = " ",
     loaded_netrw = 1,
     loaded_netrwPlugin = 1,
+    -- customize
+    max_file = {
+      size = 1024 * 100,
+      lines = 10000,
+    },
   },
 }
 

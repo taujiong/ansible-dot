@@ -14,9 +14,16 @@ return {
   opts = {
     ensure_installed = { "bash", "markdown", "markdown_inline", "regex", "vim", },
     auto_install = true,
-    autotag = { enable = true, },
-    highlight = { enable = true, },
-    indent = { enable = true, },
+    autotag = {
+      enable = true,
+    },
+    highlight = {
+      enable = true,
+      disable = function(_, bufnr) return vim.b[bufnr].large_buf end,
+    },
+    indent = {
+      enable = true,
+    },
     context_commentstring = {
       enable = true,
       enable_autocmd = false,

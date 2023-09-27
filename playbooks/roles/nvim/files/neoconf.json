@@ -5,6 +5,7 @@
       "Lua.hint.enable": true,
       "Lua.workspace.checkThirdParty": false,
       "Lua.format.defaultConfig": {
+        "quote_style": "double",
         "end_of_line": "lf",
         "table_separator_style": "comma",
         "trailing_table_separator": "always"

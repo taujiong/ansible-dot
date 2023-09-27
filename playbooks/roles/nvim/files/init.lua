@@ -42,3 +42,4 @@ require("lazy").setup({
 })
 
 vim.cmd.colorscheme("catppuccin")
+require("user.autocmds")
