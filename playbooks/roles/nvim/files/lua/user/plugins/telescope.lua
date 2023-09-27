@@ -14,6 +14,7 @@ return {
   opts = function()
     local icons = require("user.icons")
     local actions = require("telescope.actions")
+    local trouble = require("trouble.providers.telescope")
     return {
       defaults = {
         prompt_prefix = icons.Selected .. " ",
@@ -30,12 +31,16 @@ return {
         },
         mappings = {
           i = {
-            ["<C-n>"] = actions.cycle_history_next,
-            ["<C-p>"] = actions.cycle_history_prev,
-            ["<C-j>"] = actions.move_selection_next,
-            ["<C-k>"] = actions.move_selection_previous,
+            ["<c-n>"] = actions.cycle_history_next,
+            ["<c-p>"] = actions.cycle_history_prev,
+            ["<c-j>"] = actions.move_selection_next,
+            ["<c-k>"] = actions.move_selection_previous,
+            ["<c-t>"] = trouble.smart_open_with_trouble,
           },
-          n = { q = actions.close },
+          n = {
+            q = actions.close,
+            ["<c-t>"] = trouble.smart_open_with_trouble,
+          },
         },
       },
       extensions = {
