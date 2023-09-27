@@ -9,9 +9,8 @@
       "return {",
       "\t\"${1:plugin name}\",",
       "\tevent = \"VeryLazy\",",
-      "\t-- for all available options, refer to:",
+      "\t-- for all available options, refer to: `:help `",
       "\topts = {${0}},",
-      "\t},",
       "}"
     ]
   }
