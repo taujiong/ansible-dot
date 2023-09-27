@@ -1,6 +1,6 @@
 ---@type LazySpec
 return {
-	"NeogitOrg/neogit",
-	event = "VeryLazy",
-	opts = {},
+  "NeogitOrg/neogit",
+  event = "VeryLazy",
+  opts = {},
 }

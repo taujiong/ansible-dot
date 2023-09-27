@@ -1,6 +1,6 @@
 ---@type LazySpec
 return {
-	"lewis6991/gitsigns.nvim",
-	event = "BufEnter",
-	opts = {},
+  "lewis6991/gitsigns.nvim",
+  event = "BufEnter",
+  opts = {},
 }

@@ -1,6 +1,6 @@
 ---@type LazySpec
 return {
-	"kylechui/nvim-surround",
-	event = "BufEnter",
-	opts = {},
+  "kylechui/nvim-surround",
+  event = "BufEnter",
+  opts = {},
 }
