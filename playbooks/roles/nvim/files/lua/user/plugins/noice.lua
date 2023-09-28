@@ -8,7 +8,7 @@ return {
   opts = {
     lsp = {
       progress = {
-        enabled = false,
+        enabled = true,
       },
       message = {
         enabled = false,

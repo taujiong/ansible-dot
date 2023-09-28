@@ -5,7 +5,7 @@
 --   - `:help lua-loader`
 vim.loader.enable()
 
-require("user.options")
+require("user.utils").pre_lazy()
 
 -- ensure lazy.nvim is ready
 local lazy_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -41,5 +41,4 @@ require("lazy").setup({
   },
 })
 
-vim.cmd.colorscheme("catppuccin")
-require("user.autocmds")
+require("user.utils").post_lazy()

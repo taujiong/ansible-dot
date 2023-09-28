@@ -1,6 +1,16 @@
 return {
   ActiveLSP = "",
+  Diagnostic = {
+    Error = "",
+    Warn = "",
+    Info = "󰋼",
+    Hint = "󰌵",
+  },
   Git = "󰊢",
+  GitAdd = "",
+  GitBranch = "",
+  GitChange = "",
+  GitDelete = "",
   Kinds = {
     Array = " ",
     Boolean = " ",
@@ -38,6 +48,7 @@ return {
     Value = " ",
     Variable = " ",
   },
+  MacroRecording = "",
   Package = "󰏖",
   Search = "",
   Selected = "❯",
