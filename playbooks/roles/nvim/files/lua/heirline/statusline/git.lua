@@ -8,10 +8,7 @@ return {
   end,
   hl = { fg = "mauve", },
 
-  -- padding
-  {
-    provider = "  ",
-  },
+  require("heirline.component").padding(2),
 
   -- branch
   {

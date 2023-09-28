@@ -1,6 +1,5 @@
 return {
   condition = function()
-    local s = ""
     return require("heirline.conditions").has_diagnostics()
   end,
   static = {
@@ -17,10 +16,7 @@ return {
   end,
   update = { "DiagnosticChanged", "BufEnter", },
 
-  -- padding
-  {
-    provider = "  ",
-  },
+  require("heirline.component").padding(2),
 
   -- error
   {
