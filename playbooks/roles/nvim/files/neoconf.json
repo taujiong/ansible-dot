@@ -1,6 +1,7 @@
 {
   "lspconfig": {
     "lua_ls": {
+      "Lua.completion.callSnippet": "Replace",
       "Lua.hint.enable": true,
       "Lua.workspace.checkThirdParty": false,
       "Lua.format.defaultConfig": {
