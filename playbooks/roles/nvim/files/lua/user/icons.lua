@@ -1,11 +1,16 @@
 return {
   ActiveLSP = "",
+  ArrowLeft = "",
+  ArrowRight = "",
+  BufferClose = "󰅖",
   Diagnostic = {
     Error = "",
     Warn = "",
     Info = "󰋼",
     Hint = "󰌵",
   },
+  FileModified = "",
+  FileReadOnly = "",
   Git = "󰊢",
   GitAdd = "",
   GitBranch = "",

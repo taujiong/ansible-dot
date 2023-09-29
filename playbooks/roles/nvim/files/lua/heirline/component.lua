@@ -1,11 +1,12 @@
 return {
-  -- file icon based on file name and file type
-  -- there should be the following two fields in the parent context `self`:
+  -- there should be the following fields in the parent context `self`:
   --   * file_name
   --   * file_type
+  --   * is_active(optional)
   file_icon = function()
     return {
       hl = function(self)
+        if not self.is_active then return {} end
         local devicons = require("nvim-web-devicons")
         local _, color = devicons.get_icon_color(self.file_name)
         if not color then
