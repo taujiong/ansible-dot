@@ -59,4 +59,5 @@ return {
   Package = "󰏖",
   Search = "",
   Selected = "❯",
+  Tab = "󰓩",
 }

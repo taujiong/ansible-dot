@@ -5,7 +5,7 @@
 --   - `:help lua-loader`
 vim.loader.enable()
 
-require("user.utils").pre_lazy()
+require("user.utils.lazy").prepare()
 
 -- ensure lazy.nvim is ready
 local lazy_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -41,4 +41,4 @@ require("lazy").setup({
   },
 })
 
-require("user.utils").post_lazy()
+require("user.utils.lazy").polish()

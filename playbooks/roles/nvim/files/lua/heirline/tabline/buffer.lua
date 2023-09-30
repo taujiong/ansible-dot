@@ -13,7 +13,32 @@ return {
   },
 
   require("heirline.component").padding(2),
-  require("heirline.component").file_icon(),
+
+  {
+    fallthrough = false,
+    {
+      condition = function(self) return self._show_picker end,
+      update = false,
+      init = function(self)
+        if not (self.label and self._picker_labels[self.label]) then
+          local bufname = self.file_path == "" and "Untitled" or self.file_name
+          local label = bufname:sub(1, 1)
+          local i = 2
+          while label ~= " " and self._picker_labels[label] do
+            if i > #bufname then break end
+            label = bufname:sub(i, i)
+            i = i + 1
+          end
+          self._picker_labels[label] = self.bufnr
+          self.label = label
+        end
+      end,
+      provider = function(self) return self.label end,
+      hl = { fg = "red", },
+    },
+    require("heirline.component").file_icon(),
+  },
+
   require("heirline.component").padding(1),
 
   -- file name
@@ -38,7 +63,6 @@ return {
           return parts
         end
         for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-          if not vim.api.nvim_buf_is_loaded(bufnr) then break end
           local file_path = vim.api.nvim_buf_get_name(bufnr)
           local file_name = vim.fn.fnamemodify(file_path, ":t")
           if self.file_name == file_name and self.bufnr ~= bufnr then
@@ -97,7 +121,7 @@ return {
       minwid = function(self) return self.bufnr end,
       name = "heirline_tabline_buffer_close_click_handle",
       callback = function(_, minwid)
-        vim.cmd("silent! bdelete" .. minwid)
+        require("user.utils.buffer").close(minwid)
       end,
     },
     provider = require("user.icons").BufferClose,

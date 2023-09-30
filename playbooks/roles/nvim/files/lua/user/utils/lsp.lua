@@ -1,6 +1,6 @@
 local M = {}
 
-function M.has_capability(capability, filter)
+local function has_capability(capability, filter)
   for _, client in ipairs(vim.lsp.get_active_clients(filter)) do
     if client.supports_method(capability) then
       return true
@@ -64,7 +64,7 @@ local on_lsp_attach = function(client, bufnr)
       events = { "InsertLeave", "BufEnter", },
       desc = "Refresh lsp codelens",
       callback = function()
-        if not M.has_capability("textDocument/codeLens", { bufnr = bufnr, }) then
+        if not has_capability("textDocument/codeLens", { bufnr = bufnr, }) then
           del_buffer_autocmd(augroup_name, bufnr)
           return
         end
@@ -140,7 +140,7 @@ local on_lsp_attach = function(client, bufnr)
       events = "BufWritePre",
       desc = "Autoformat on save",
       callback = function()
-        if not M.has_capability("textDocument/formatting", { bufnr = bufnr, }) then
+        if not has_capability("textDocument/formatting", { bufnr = bufnr, }) then
           del_buffer_autocmd(augroup_name, bufnr)
         end
         format(bufnr)
@@ -163,7 +163,7 @@ local on_lsp_attach = function(client, bufnr)
         events = { "CursorHold", "CursorHoldI", },
         desc = "Highlight references when cursor holds",
         callback = function()
-          if not M.has_capability("textDocument/documentHighlight", { bufnr = bufnr, }) then
+          if not has_capability("textDocument/documentHighlight", { bufnr = bufnr, }) then
             del_buffer_autocmd(augroup_name, bufnr)
             return
           end
@@ -182,7 +182,18 @@ local on_lsp_attach = function(client, bufnr)
 end
 
 local get_server_lsp_opts = function(server_name)
+  local lsp_capabilities = vim.lsp.protocol.make_client_capabilities()
   local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+  local ufo_capabilities = {
+    textDocument = {
+      foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true,
+      },
+    },
+  }
+  local capabilities = vim.tbl_deep_extend("keep", lsp_capabilities, cmp_capabilities, ufo_capabilities)
+
   local server_settings = {}
   if server_name == "jsonls" then
     local schemastore = require("schemastore")
@@ -202,7 +213,7 @@ local get_server_lsp_opts = function(server_name)
   end
 
   return {
-    capabilities = cmp_capabilities,
+    capabilities = capabilities,
     settings = server_settings,
     on_attach = on_lsp_attach,
   }
@@ -215,6 +226,29 @@ local setup_server_handler = function()
       local server_opts = get_server_lsp_opts(server_name)
       lspconfig[server_name].setup(server_opts)
     end,
+  })
+end
+
+function M.setup_vim_diagnostic()
+  local icons = require("user.icons")
+  local signs = {
+    { name = "DiagnosticSignError", text = icons.Diagnostic.Error, texthl = "DiagnosticSignError", },
+    { name = "DiagnosticSignWarn",  text = icons.Diagnostic.Warn,  texthl = "DiagnosticSignWarn", },
+    { name = "DiagnosticSignInfo",  text = icons.Diagnostic.Info,  texthl = "DiagnosticSignInfo", },
+    { name = "DiagnosticSignHint",  text = icons.Diagnostic.Hint,  texthl = "DiagnosticSignHint", },
+  }
+  for _, sign in ipairs(signs) do
+    vim.fn.sign_define(sign.name, sign)
+  end
+  vim.diagnostic.config({
+    update_in_insert = true,
+    underline = false,
+    severity_sort = true,
+    float = {
+      focused = false,
+      border = "rounded",
+      source = "always",
+    },
   })
 end
 

@@ -6,7 +6,9 @@ wk.register({
   k = { "v:count == 0 ? 'gk' : 'k'", "Move cursor up", expr = true, },
   x = { '"_x', "Cut char without copy", },
   xx = { '"_dd', "Cut line without copy", },
-  gx = { require("user.utils").open_with_system, "Open with system app", },
+  gx = { require("user.utils.system").open_with_system, "Open with system app", },
+  ["<tab>"] = { "<cmd>bn<cr>", "Next buffer", },
+  ["<s-tab>"] = { "<cmd>bp<cr>", "Previous buffer", },
   ["\\"] = { "<cmd>split<cr>", "Split horizontally", },
   ["|"] = { "<cmd>vsplit<cr>", "Split vertically", },
   ["<m-j>"] = { "<cmd>m .+1<cr>==", "Move line down", },
@@ -26,6 +28,18 @@ wk.register({
 }, { mode = "i", })
 
 wk.register({
+  b = {
+    name = require("user.icons").Tab .. " Buffers",
+    a = { require("user.utils.buffer").close_all, "Close all buffers", },
+    b = { require("user.utils.buffer").pick_buffer_to_open, "Pick to open", },
+    d = { require("user.utils.buffer").pick_buffer_to_close, "Pick to close", },
+    l = { require("user.utils.buffer").close_left, "Close left buffers", },
+    o = { function()
+      require("user.utils.buffer").close_all(true)
+    end, "Close others buffers", },
+    r = { require("user.utils.buffer").close_right, "Close right buffers", },
+  },
+  c = { require("user.utils.buffer").close, "Close buffer", },
   f = { name = icons.Search .. " Find", },
   g = { name = icons.Git .. " Git", },
   l = {

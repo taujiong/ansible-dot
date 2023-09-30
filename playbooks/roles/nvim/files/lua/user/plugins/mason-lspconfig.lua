@@ -29,6 +29,6 @@ return {
     })
     require("mason").setup()
     require("mason-lspconfig").setup(opts)
-    require("user.lsp").setup()
+    require("user.utils.lsp").setup()
   end,
 }
