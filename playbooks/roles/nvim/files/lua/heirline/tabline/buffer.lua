@@ -7,7 +7,7 @@ return {
   on_click = {
     minwid = function(self) return self.bufnr end,
     name = "heirline_tabline_buffer_click_handle",
-    callback = function(self, minwid)
+    callback = function(_, minwid)
       vim.api.nvim_win_set_buf(0, minwid)
     end,
   },

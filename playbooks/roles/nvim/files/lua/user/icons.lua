@@ -11,6 +11,8 @@ return {
   },
   FileModified = "",
   FileReadOnly = "",
+  FoldClosed = "",
+  FoldOpened = "",
   Git = "󰊢",
   GitAdd = "",
   GitBranch = "",

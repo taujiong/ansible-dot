@@ -40,7 +40,7 @@ local options = {
     scrolloff = 8,
     showbreak = "↪ ",
     sidescrolloff = 8,
-    signcolumn = "yes",
+    signcolumn = "yes:2",
     virtualedit = "block",
     wrap = true,
     -- bo

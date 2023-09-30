@@ -39,6 +39,11 @@ return {
         require("heirline.component").fill(),
         require("heirline.tabline.tab"),
       },
+      statuscolumn = {
+        require("heirline.statuscolumn.fold"),
+        require("heirline.statuscolumn.number"),
+        require("heirline.statuscolumn.sign"),
+      },
     }
   end,
 }
