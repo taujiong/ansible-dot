@@ -6,6 +6,7 @@ wk.register({
   k = { "v:count == 0 ? 'gk' : 'k'", "Move cursor up", expr = true, },
   x = { '"_x', "Cut char without copy", },
   xx = { '"_dd', "Cut line without copy", },
+  -- TODO: Remove when dropping support for <Neovim v0.10
   gx = { require("user.utils.system").open_with_system, "Open with system app", },
   ["<tab>"] = { "<cmd>bn<cr>", "Next buffer", },
   ["<s-tab>"] = { "<cmd>bp<cr>", "Previous buffer", },
@@ -30,6 +31,24 @@ wk.register({
 wk.register({
   b = {
     name = require("user.icons").Tab .. " Buffers",
+    ["\\"] = {
+      function()
+        require("user.utils.buffer").pick_buffer_to(function(bufnr)
+          vim.cmd.split()
+          vim.api.nvim_win_set_buf(0, bufnr)
+        end)
+      end,
+      "Horizontal split buffer from tabline",
+    },
+    ["|"] = {
+      function()
+        require("user.utils.buffer").pick_buffer_to(function(bufnr)
+          vim.cmd.vsplit()
+          vim.api.nvim_win_set_buf(0, bufnr)
+        end)
+      end,
+      "Vertical split buffer from tabline",
+    },
     a = { require("user.utils.buffer").close_all, "Close all buffers", },
     b = { require("user.utils.buffer").pick_buffer_to_open, "Pick to open", },
     d = { require("user.utils.buffer").pick_buffer_to_close, "Pick to close", },
@@ -38,6 +57,7 @@ wk.register({
       require("user.utils.buffer").close_all(true)
     end, "Close others buffers", },
     r = { require("user.utils.buffer").close_right, "Close right buffers", },
+    t = { require("user.utils.buffer").close_tab, "Close current tab", },
   },
   c = { require("user.utils.buffer").close, "Close buffer", },
   f = { name = icons.Search .. " Find", },

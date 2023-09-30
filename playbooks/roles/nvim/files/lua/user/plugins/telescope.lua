@@ -67,6 +67,7 @@ return {
         },
         h = { require("telescope.builtin").help_tags, "Find help", },
         o = { require("telescope.builtin").oldfiles, "Find history", },
+        v = { require("telescope.builtin").vim_options, "Find vim options", },
         r = { require("telescope.builtin").registers, "Find registers", },
         p = { require("telescope.builtin").builtin, "Find all pickers", },
       },

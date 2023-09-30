@@ -1,4 +1,4 @@
-local excluded_file_types = { "help", }
+local excluded_file_types = { "help", "NeogitPopup", }
 local excluded_buffer_types = { "nofile", }
 ---@type LazySpec
 return {

@@ -38,7 +38,7 @@ function M.close_tab()
   end
 end
 
-function M.pick_buffer(callback)
+function M.pick_buffer_to(callback)
   local tabline = require("heirline").tabline
   local prev_showtabline = vim.opt.showtabline:get()
   if prev_showtabline ~= 2 then vim.opt.showtabline = 2 end
@@ -59,13 +59,13 @@ function M.pick_buffer(callback)
 end
 
 function M.pick_buffer_to_open()
-  M.pick_buffer(function(bufnr)
+  M.pick_buffer_to(function(bufnr)
     vim.cmd("b" .. bufnr)
   end)
 end
 
 function M.pick_buffer_to_close()
-  M.pick_buffer(function(bufnr)
+  M.pick_buffer_to(function(bufnr)
     M.close(bufnr)
   end)
 end

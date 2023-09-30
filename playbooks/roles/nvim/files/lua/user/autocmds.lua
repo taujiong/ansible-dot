@@ -41,3 +41,19 @@ autocmd("TextYankPost", {
   pattern = "*",
   callback = function() vim.highlight.on_yank() end,
 })
+
+local view_group = augroup("user_auto_view", { clear = true, })
+autocmd({ "BufWinLeave", "BufWritePost", "WinLeave", }, {
+  desc = "Save view with mkview for real files",
+  group = view_group,
+  callback = function()
+    vim.cmd.mkview({ mods = { emsg_silent = true, }, })
+  end,
+})
+autocmd("BufWinEnter", {
+  desc = "Try to load file view if available and enable view saving for real files",
+  group = view_group,
+  callback = function()
+    vim.cmd.loadview({ mods = { emsg_silent = true, }, })
+  end,
+})
