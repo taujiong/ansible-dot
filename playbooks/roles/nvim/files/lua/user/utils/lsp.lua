@@ -39,7 +39,7 @@ local format = function(bufnr)
     bufnr = bufnr,
     timeout_ms = 5000,
   })
-  vim.cmd.loadview()
+  vim.diagnostic.enable(bufnr)
 end
 
 ---@param bufnr number

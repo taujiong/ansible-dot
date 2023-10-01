@@ -1,7 +1,6 @@
 ---@type LazySpec
 return {
   "rebelot/heirline.nvim",
-  priority = 100,
   -- for all available options, refer to: https://github.com/rebelot/heirline.nvim/blob/master/cookbook.md
   opts = function()
     return {

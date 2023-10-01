@@ -2,8 +2,22 @@ local M = {}
 
 function M.close(bufnr)
   if not bufnr or bufnr == 0 then bufnr = vim.api.nvim_get_current_buf() end
-  local delete_cmd = vim.api.nvim_get_option_value("modified", { buf = bufnr, }) and "confirm bdelete" or "bdelete!"
-  vim.cmd(("silent! %s %d"):format(delete_cmd, bufnr))
+  local force = false
+  if vim.api.nvim_get_option_value("modified", { buf = bufnr, }) then
+    local bufname = vim.fn.expand "%"
+    local empty = bufname == ""
+    if empty then bufname = "Untitled" end
+    local confirm = vim.fn.confirm(('Save changes to "%s"?'):format(bufname), "&Yes\n&No\n&Cancel", 1, "Question")
+    if confirm == 1 then
+      if empty then return end
+      vim.cmd.write()
+    elseif confirm == 2 then
+      force = true
+    else
+      return
+    end
+  end
+  require("mini.bufremove").delete(bufnr, force)
 end
 
 function M.close_all(kepp_current)
