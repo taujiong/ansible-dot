@@ -60,4 +60,5 @@ return {
   Search = "",
   Selected = "❯",
   Tab = "󰓩",
+  Window = "",
 }

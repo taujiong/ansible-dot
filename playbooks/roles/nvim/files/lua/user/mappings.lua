@@ -76,4 +76,9 @@ wk.register({
     n = { "<cmd>Neoconf show<cr>", "Show merged neoconf", },
   },
   q = { "<cmd>q<cr>", "Quit", },
+  u = {
+    name = require("user.icons").Window .. " UI/UX",
+    f = { require("user.utils.ui").toggle_buffer_autoformat, "Toggle autoformatting (buffer)", },
+    F = { require("user.utils.ui").toggle_global_autoformat, "Toggle autoformatting (global)", },
+  },
 }, { prefix = "<leader>", })

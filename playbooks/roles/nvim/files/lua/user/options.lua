@@ -62,6 +62,7 @@ local options = {
       size = 1024 * 100,
       lines = 10000,
     },
+    autoformat_enabled = true,
   },
 }
 

@@ -39,6 +39,7 @@ local format = function(bufnr)
     bufnr = bufnr,
     timeout_ms = 5000,
   })
+  vim.cmd.loadview()
 end
 
 ---@param bufnr number
@@ -145,7 +146,10 @@ local on_lsp_attach = function(client, bufnr)
         if not has_capability("textDocument/formatting", { bufnr = bufnr, }) then
           del_buffer_autocmd(augroup_name, bufnr)
         end
-        format(bufnr)
+        ---@diagnostic disable-next-line: undefined-field
+        if vim.b.autoformat_enabled or (vim.b.autoformat_enabled == nil and vim.g.autoformat_enabled) then
+          format(bufnr)
+        end
       end,
     })
     wk.register({
