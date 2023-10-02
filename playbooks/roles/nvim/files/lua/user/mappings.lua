@@ -78,7 +78,9 @@ wk.register({
   q = { "<cmd>q<cr>", "Quit", },
   u = {
     name = require("user.icons").Window .. " UI/UX",
-    f = { require("user.utils.ui").toggle_buffer_autoformat, "Toggle autoformatting (buffer)", },
-    F = { require("user.utils.ui").toggle_global_autoformat, "Toggle autoformatting (global)", },
+    c = { require("user.utils.ui").toggle_cmp, "Toggle autocompletion", },
+    p = { require("user.utils.ui").toggle_autopairs, "Toggle autopairs", },
+    r = { require("user.utils.ui").toggle_relative_number, "Toggle relative number", },
+    w = { require("user.utils.ui").toggle_wrap, "Toggle wrap", },
   },
 }, { prefix = "<leader>", })

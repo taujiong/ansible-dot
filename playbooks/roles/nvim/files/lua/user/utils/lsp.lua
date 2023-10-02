@@ -114,8 +114,16 @@ local on_lsp_attach = function(client, bufnr)
   end
 
   if client.supports_method("textDocument/inlayHint") then
-    if vim.lsp.inlay_hint then
-      vim.lsp.inlay_hint(bufnr, true)
+    ---@diagnostic disable-next-line: undefined-field
+    if vim.b.inlay_hints_enabled or (vim.b.inlay_hints_enabled == nil and vim.g.inlay_hints_enabled) then
+      if vim.lsp.inlay_hint then
+        vim.lsp.inlay_hint(bufnr, true)
+        wk.register({
+          ["<leader>uH"] = { function()
+            require("user.utils.ui").toggle_buffer_inlay_hints(bufnr)
+          end, "Toggle LSP inlay hints (buffer)", },
+        })
+      end
     end
   end
 
@@ -159,6 +167,8 @@ local on_lsp_attach = function(client, bufnr)
         end,
         "Format with lsp",
       },
+      uf = { require("user.utils.ui").toggle_buffer_autoformat, "Toggle autoformatting (buffer)", },
+      uF = { require("user.utils.ui").toggle_global_autoformat, "Toggle autoformatting (global)", },
     }, { prefix = "<leader>", mode = { "n", "v", }, buffer = bufnr, })
   end
 

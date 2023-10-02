@@ -63,6 +63,8 @@ local options = {
       lines = 10000,
     },
     autoformat_enabled = true,
+    inlay_hints_enabled = true,
+    cmp_enabled = true,
   },
 }
 

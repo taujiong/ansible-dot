@@ -18,8 +18,12 @@ return {
 
     ---@type cmp.ConfigSchema
     return {
+      enabled = function()
+        return vim.g.cmp_enabled
+      end,
       completion = {
         autocomplete = { "InsertEnter", "TextChanged", },
+
       },
       snippet = {
         expand = function(args)
