@@ -15,3 +15,39 @@
     cmd: brew list --cask
   register: installed_brew_casks
   changed_when: false
+
+- name: Install fira nerd font
+  community.general.homebrew_cask:
+    name: "homebrew/cask-fonts/{{ item }}"
+  when: item not in installed_brew_casks.stdout_lines
+  loop: 
+    - font-fira-code-nerd-font
+    - font-hack-nerd-font
+
+- name: Install modern cli tools
+  community.general.homebrew:
+    name: "{{ item }}"
+  when: item not in installed_brew_formulae.stdout_lines
+  loop:
+    - fd
+    - ripgrep
+
+- name: Install ui apps
+  community.general.homebrew_cask:
+    name: "{{ item }}"
+  when: item not in installed_brew_casks.stdout_lines
+  loop:
+    - microsoft-edge
+    - raycast
+    - snipaste
+    - visual-studio-code
+
+- name: Add quicklook extensions
+  community.general.homebrew_cask:
+    name: "{{ item }}"
+  when: item not in installed_brew_casks.stdout_lines
+  loop:
+    - qlimagesize
+    - qlmarkdown
+    - qlvideo
+    - quicklook-json
