@@ -1,0 +1,9 @@
+[user]
+	name = taujiong
+	email = taujiong@outlook.com
+[core]
+	quotepath = false
+[init]
+	defaultBranch = main
+[includeIf "gitdir:~/Projects/work/"]
+  path = .gitconfig_work
