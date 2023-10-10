@@ -1,0 +1,10 @@
+- name: Install kitty
+  community.general.homebrew_cask:
+    name: kitty
+  when: ("kitty" not in installed_brew_casks.stdout_lines)
+
+- name: Link config
+  ansible.builtin.file:
+    src: '{{ ansible_env.PWD }}/roles/kitty/files'
+    dest: ~/.config/kitty
+    state: link
