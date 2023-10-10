@@ -16,7 +16,7 @@
   register: installed_brew_casks
   changed_when: false
 
-- name: Install fira nerd font
+- name: Install nerd fonts
   community.general.homebrew_cask:
     name: "homebrew/cask-fonts/{{ item }}"
   when: item not in installed_brew_casks.stdout_lines
