@@ -1,0 +1,14 @@
+- name: Link .zshrc
+  ansible.builtin.file:
+    src: '{{ ansible_env.PWD }}/roles/shell/files/.zshrc'
+    dest: ~/.zshrc
+    state: link
+
+- name: Install zsh plugins
+  community.general.homebrew:
+    name: "{{ item }}"
+  when: item not in installed_brew_formulae.stdout_lines
+  loop:
+    - autojump
+    - zsh-syntax-highlighting
+    - zsh-autosuggestions
