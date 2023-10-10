@@ -61,5 +61,19 @@ return {
     api.events.subscribe(Event.TreeOpen, function()
       vim.wo.statuscolumn = ""
     end)
+    api.events.subscribe(Event.NodeRenamed, function(args)
+      local ts_clients = vim.lsp.get_active_clients({ name = "tsserver", })
+      for _, ts_client in ipairs(ts_clients) do
+        ts_client.request("workspace/executeCommand", {
+          command = "_typescript.applyRenameFile",
+          arguments = {
+            {
+              sourceUri = vim.uri_from_fname(args.old_name),
+              targetUri = vim.uri_from_fname(args.new_name),
+            },
+          },
+        })
+      end
+    end)
   end,
 }
