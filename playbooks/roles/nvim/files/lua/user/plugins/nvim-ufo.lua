@@ -17,7 +17,7 @@ return {
       },
     },
     provider_selector = function(_, filetype, buftype)
-      if vim.tbl_contains({ "NeogitStatus", }, filetype) then return nil end
+      if vim.tbl_contains({ "NeogitStatus", "NvimTree", }, filetype) then return "" end
       if filetype == "" or buftype == "nofile" then return "indent" end
 
       local function handleFallbackException(bufnr, err, providerName)

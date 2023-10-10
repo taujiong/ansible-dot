@@ -24,4 +24,13 @@ return {
       ["<leader>gg"] = { require("neogit").open, "Open neogit", },
     })
   end,
+  init = function()
+    vim.api.nvim_create_autocmd("FileType", {
+      desc = "Disable statuscolumn for NeogitStatus",
+      pattern = { "NeogitStatus", },
+      callback = function()
+        vim.wo.statuscolumn = ""
+      end,
+    })
+  end,
 }

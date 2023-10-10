@@ -55,5 +55,11 @@ return {
     require("which-key").register({
       ["<leader>e"] = { require("nvim-tree.api").tree.toggle, "Toggle explorer", },
     })
+
+    local api = require("nvim-tree.api")
+    local Event = api.events.Event
+    api.events.subscribe(Event.TreeOpen, function()
+      vim.wo.statuscolumn = ""
+    end)
   end,
 }
