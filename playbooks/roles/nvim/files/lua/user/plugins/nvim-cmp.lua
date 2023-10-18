@@ -67,7 +67,7 @@ return {
       formatting = {
         fields = { "kind", "menu", "abbr", },
         format = function(_, item)
-          local icons = require("user.icons").Kinds
+          local icons = require("user.icons").LspKind
           if icons[item.kind] then
             item.kind = icons[item.kind]
           end

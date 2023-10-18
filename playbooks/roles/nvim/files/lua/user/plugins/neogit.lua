@@ -14,8 +14,8 @@ return {
     end,
     ---@diagnostic disable-next-line: missing-fields
     signs = {
-      item = { require("user.icons").FoldClosed, require("user.icons").FoldOpened, },
-      section = { require("user.icons").FoldClosed, require("user.icons").FoldOpened, },
+      item = { require("user.icons").Heirline.FoldClosed, require("user.icons").Heirline.FoldOpened, },
+      section = { require("user.icons").Heirline.FoldClosed, require("user.icons").Heirline.FoldOpened, },
     },
   },
   config = function(_, opts)

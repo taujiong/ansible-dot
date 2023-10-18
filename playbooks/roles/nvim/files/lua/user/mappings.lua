@@ -30,7 +30,7 @@ wk.register({
 
 wk.register({
   b = {
-    name = require("user.icons").Tab .. " Buffers",
+    name = require("user.icons").WhichKeyPrefix.Tab .. " Buffers",
     ["\\"] = {
       function()
         require("user.utils.buffer").pick_buffer_to(function(bufnr)
@@ -60,15 +60,15 @@ wk.register({
     t = { require("user.utils.buffer").close_tab, "Close current tab", },
   },
   c = { require("user.utils.buffer").close, "Close buffer", },
-  f = { name = icons.Search .. " Find", },
-  g = { name = icons.Git .. " Git", },
+  f = { name = icons.WhichKeyPrefix.Search .. " Find", },
+  g = { name = icons.WhichKeyPrefix.Git .. " Git", },
   l = {
-    name = icons.ActiveLSP .. " Lsp",
+    name = icons.WhichKeyPrefix.ActiveLSP .. " Lsp",
     g = { "<cmd>LspLog<cr>", "Show lsp log", },
     m = { "<cmd>LspRestart<cr>", "Restart lsp", },
   },
   p = {
-    name = icons.Package .. " Packages",
+    name = icons.WhichKeyPrefix.Package .. " Packages",
     m = { "<cmd>Mason<cr>", "Show mason packages", },
     s = { "<cmd>Lazy<cr>", "Show lazy plugins", },
     c = { "<cmd>Neoconf<cr>", "Update local/global neoconf", },
@@ -77,7 +77,7 @@ wk.register({
   },
   q = { "<cmd>q<cr>", "Quit", },
   u = {
-    name = require("user.icons").Window .. " UI/UX",
+    name = require("user.icons").WhichKeyPrefix.Window .. " UI/UX",
     c = { require("user.utils.ui").toggle_cmp, "Toggle autocompletion", },
     p = { require("user.utils.ui").toggle_autopairs, "Toggle autopairs", },
     r = { require("user.utils.ui").toggle_relative_number, "Toggle relative number", },

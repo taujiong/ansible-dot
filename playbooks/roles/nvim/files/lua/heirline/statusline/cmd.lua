@@ -9,7 +9,7 @@ return {
     update = { "RecordingEnter", "RecordingLeave", },
     provider = function()
       local register = vim.fn.reg_recording()
-      return register ~= "" and require("user.icons").MacroRecording .. " @" .. register
+      return register ~= "" and require("user.icons").Heirline.MacroRecording .. " @" .. register
     end,
   },
 
@@ -28,7 +28,7 @@ return {
           search.incomplete == 2 and ">" or "",
           math.min(search.total, search.maxcount)
         )
-        return require("user.icons").Search .. " " .. count_str
+        return require("user.icons").WhichKeyPrefix.Search .. " " .. count_str
       end
     end,
   },

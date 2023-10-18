@@ -1,7 +1,7 @@
 return {
   init = function(self)
-    self.close_icon = require("user.icons").FoldClosed
-    self.open_icon = require("user.icons").FoldOpened
+    self.close_icon = require("user.icons").Heirline.FoldClosed
+    self.open_icon = require("user.icons").Heirline.FoldOpened
   end,
   on_click = {
     name = "heirline_statuscolumn_fold_click_handle",

@@ -17,8 +17,8 @@ return {
     local trouble = require("trouble.providers.telescope")
     return {
       defaults = {
-        prompt_prefix = icons.Selected .. " ",
-        selection_caret = icons.Selected .. " ",
+        prompt_prefix = icons.UI.Selected .. " ",
+        selection_caret = icons.UI.Selected .. " ",
         path_display = { "truncate", },
         file_ignore_patterns = { "^.git/", "^node_modules/", },
         sorting_strategy = "ascending",

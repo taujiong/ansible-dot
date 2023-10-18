@@ -92,7 +92,7 @@ return {
     {
       provider = function(self)
         if vim.bo[self.bufnr].modified then
-          return " " .. require("user.icons").FileModified
+          return " " .. require("user.icons").Heirline.FileModified
         end
       end,
     },
@@ -102,7 +102,7 @@ return {
       provider = function(self)
         local bo = vim.bo[self.bufnr]
         if not bo.modifiable or bo.readonly then
-          return " " .. require("user.icons").FileReadOnly
+          return " " .. require("user.icons").Heirline.FileReadOnly
         end
       end,
     },
@@ -124,6 +124,6 @@ return {
         require("user.utils.buffer").close(minwid)
       end,
     },
-    provider = require("user.icons").BufferClose,
+    provider = require("user.icons").Heirline.BufferClose,
   },
 }

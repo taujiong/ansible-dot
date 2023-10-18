@@ -13,7 +13,7 @@ return {
   -- branch
   {
     provider = function(self)
-      return require("user.icons").GitBranch .. " " .. self.status_dict.head
+      return require("user.icons").Heirline.GitBranch .. " " .. self.status_dict.head
     end,
     hl = { bold = true, },
   },
@@ -22,7 +22,7 @@ return {
   {
     provider = function(self)
       local count = self.status_dict.added or 0
-      return count > 0 and (" " .. require("user.icons").GitAdd .. " " .. count)
+      return count > 0 and (" " .. require("user.icons").Heirline.GitAdd .. " " .. count)
     end,
     hl = { fg = "green", },
   },
@@ -31,7 +31,7 @@ return {
   {
     provider = function(self)
       local count = self.status_dict.removed or 0
-      return count > 0 and (" " .. require("user.icons").GitDelete .. " " .. count)
+      return count > 0 and (" " .. require("user.icons").Heirline.GitDelete .. " " .. count)
     end,
     hl = { fg = "red", },
   },
@@ -40,7 +40,7 @@ return {
   {
     provider = function(self)
       local count = self.status_dict.changed or 0
-      return count > 0 and (" " .. require("user.icons").GitChange .. " " .. count)
+      return count > 0 and (" " .. require("user.icons").Heirline.GitChange .. " " .. count)
     end,
     hl = { fg = "yellow", },
   },

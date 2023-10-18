@@ -32,8 +32,8 @@ return {
         require("heirline.tabline.placeholder"),
         require("heirline.utils").make_buflist(
           require("heirline.tabline.buffer"),
-          { provider = "  " .. require("user.icons").ArrowLeft, },
-          { provider = "  " .. require("user.icons").ArrowRight, }
+          { provider = "  " .. require("user.icons").Heirline.ArrowLeft, },
+          { provider = "  " .. require("user.icons").Heirline.ArrowRight, }
         ),
         require("heirline.component").fill(),
         require("heirline.tabline.tab"),
