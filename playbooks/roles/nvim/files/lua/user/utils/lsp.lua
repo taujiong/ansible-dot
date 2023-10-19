@@ -10,11 +10,11 @@ end
 
 local function add_buffer_autocmd(augroup, bufnr, autocmds)
   if not vim.tbl_islist(autocmds) then
-    autocmds = { autocmds, }
+    autocmds = { autocmds }
   end
-  local cmds_found, cmds = pcall(vim.api.nvim_get_autocmds, { group = augroup, buffer = bufnr, })
+  local cmds_found, cmds = pcall(vim.api.nvim_get_autocmds, { group = augroup, buffer = bufnr })
   if not cmds_found or vim.tbl_isempty(cmds) then
-    vim.api.nvim_create_augroup(augroup, { clear = false, })
+    vim.api.nvim_create_augroup(augroup, { clear = false })
     for _, autocmd in ipairs(autocmds) do
       local events = autocmd.events
       autocmd.events = nil
@@ -26,7 +26,7 @@ local function add_buffer_autocmd(augroup, bufnr, autocmds)
 end
 
 local function del_buffer_autocmd(augroup, bufnr)
-  local cmds_found, cmds = pcall(vim.api.nvim_get_autocmds, { group = augroup, buffer = bufnr, })
+  local cmds_found, cmds = pcall(vim.api.nvim_get_autocmds, { group = augroup, buffer = bufnr })
   if cmds_found then
     vim.tbl_map(function(cmd)
       vim.api.nvim_del_autocmd(cmd.id)
@@ -34,38 +34,30 @@ local function del_buffer_autocmd(augroup, bufnr)
   end
 end
 
-local format = function(bufnr)
-  vim.lsp.buf.format({
-    bufnr = bufnr,
-    timeout_ms = 5000,
-  })
-  vim.diagnostic.enable(bufnr)
-end
-
 ---@param bufnr number
 local on_lsp_attach = function(client, bufnr)
   local wk = require("which-key")
   wk.register({
-    ["[d"] = { vim.diagnostic.goto_prev, "Previous diagnostic", },
-    ["]d"] = { vim.diagnostic.goto_next, "Next diagnostic", },
-    ["gl"] = { vim.diagnostic.open_float, "Diagnostic on current line", },
-    ["<leader>fd"] = { require("telescope.builtin").diagnostics, "Find diagnostics", },
-    ["<leader>li"] = { "<cmd>LspInfo<cr>", "Show lsp information", },
-  }, { buffer = bufnr, })
+    ["[d"] = { vim.diagnostic.goto_prev, "Previous diagnostic" },
+    ["]d"] = { vim.diagnostic.goto_next, "Next diagnostic" },
+    ["gl"] = { vim.diagnostic.open_float, "Diagnostic on current line" },
+    ["<leader>fd"] = { require("telescope.builtin").diagnostics, "Find diagnostics" },
+    ["<leader>li"] = { "<cmd>LspInfo<cr>", "Show lsp information" },
+  }, { buffer = bufnr })
 
   if client.supports_method("textDocument/codeAction") then
     wk.register({
-      ["<leader>la"] = { vim.lsp.buf.code_action, "Show lsp code actions", },
-    }, { mode = { "n", "v", }, buffer = bufnr, })
+      ["<leader>la"] = { vim.lsp.buf.code_action, "Show lsp code actions" },
+    }, { mode = { "n", "v" }, buffer = bufnr })
   end
 
   if client.supports_method("textDocument/codeLens") then
     local augroup_name = "user_lsp_codelens_refresh"
     add_buffer_autocmd(augroup_name, bufnr, {
-      events = { "InsertLeave", "BufEnter", },
+      events = { "InsertLeave", "BufEnter" },
       desc = "Refresh lsp codelens",
       callback = function()
-        if not has_capability("textDocument/codeLens", { bufnr = bufnr, }) then
+        if not has_capability("textDocument/codeLens", { bufnr = bufnr }) then
           del_buffer_autocmd(augroup_name, bufnr)
           return
         end
@@ -74,43 +66,43 @@ local on_lsp_attach = function(client, bufnr)
     })
     wk.register({
       l = {
-        l = { vim.lsp.codelens.refresh, "Refresh lsp codelens", },
-        L = { vim.lsp.codelens.run, "Run lsp codelens", },
+        l = { vim.lsp.codelens.refresh, "Refresh lsp codelens" },
+        L = { vim.lsp.codelens.run, "Run lsp codelens" },
       },
-    }, { prefix = "<leader>", buffer = bufnr, })
+    }, { prefix = "<leader>", buffer = bufnr })
   end
 
   if client.supports_method("textDocument/declaration") then
     wk.register({
-      gD = { vim.lsp.buf.declaration, "Declaration of current symbol", },
-    }, { buffer = bufnr, })
+      gD = { vim.lsp.buf.declaration, "Declaration of current symbol" },
+    }, { buffer = bufnr })
   end
 
   if client.supports_method("textDocument/definition") then
     wk.register({
-      gd = { require("telescope.builtin").lsp_definitions, "Show the definition of current symbol", },
-    }, { buffer = bufnr, })
+      gd = { require("telescope.builtin").lsp_definitions, "Show the definition of current symbol" },
+    }, { buffer = bufnr })
   end
 
   if client.supports_method("textDocument/typeDefinition") then
     wk.register({
-      gD = { require("telescope.builtin").lsp_type_definitions, "Definition of current type", },
-    }, { buffer = bufnr, })
+      gD = { require("telescope.builtin").lsp_type_definitions, "Definition of current type" },
+    }, { buffer = bufnr })
   end
 
   if client.supports_method("textDocument/hover") then
     -- TODO: Remove mapping after dropping support for Neovim v0.9, it's automatic
     if vim.fn.has("nvim-0.10") == 0 then
       wk.register({
-        K = { vim.lsp.buf.hover, "Hover symbol details", },
-      }, { buffer = bufnr, })
+        K = { vim.lsp.buf.hover, "Hover symbol details" },
+      }, { buffer = bufnr })
     end
   end
 
   if client.supports_method("textDocument/implementation") then
     wk.register({
-      gI = { require("telescope.builtin").lsp_implementations, "Implementation of current symbol", },
-    }, { buffer = bufnr, })
+      gI = { require("telescope.builtin").lsp_implementations, "Implementation of current symbol" },
+    }, { buffer = bufnr })
   end
 
   if client.supports_method("textDocument/inlayHint") then
@@ -119,9 +111,12 @@ local on_lsp_attach = function(client, bufnr)
       if vim.lsp.inlay_hint then
         vim.lsp.inlay_hint(bufnr, true)
         wk.register({
-          ["<leader>uH"] = { function()
-            require("user.utils.ui").toggle_buffer_inlay_hints(bufnr)
-          end, "Toggle LSP inlay hints (buffer)", },
+          ["<leader>uH"] = {
+            function()
+              require("user.utils.ui").toggle_buffer_inlay_hints(bufnr)
+            end,
+            "Toggle LSP inlay hints (buffer)",
+          },
         })
       end
     end
@@ -129,57 +124,30 @@ local on_lsp_attach = function(client, bufnr)
 
   if client.supports_method("textDocument/references") then
     wk.register({
-      gr = { require("telescope.builtin").lsp_references, "References of current symbol", },
-    }, { buffer = bufnr, })
+      gr = { require("telescope.builtin").lsp_references, "References of current symbol" },
+    }, { buffer = bufnr })
   end
 
   if client.supports_method("textDocument/rename") then
     wk.register({
-      ["<leader>lr"] = { vim.lsp.buf.rename, "Rename current symbol", },
-    }, { buffer = bufnr, })
+      ["<leader>lr"] = { vim.lsp.buf.rename, "Rename current symbol" },
+    }, { buffer = bufnr })
   end
 
   if client.supports_method("textDocument/signatureHelp") then
     wk.register({
-      ["<leader>lh"] = { vim.lsp.buf.signature_help, "Show signature help", },
-    }, { buffer = bufnr, })
-  end
-
-  if client.supports_method("textDocument/formatting") then
-    local augroup_name = "user_lsp_format"
-    add_buffer_autocmd(augroup_name, bufnr, {
-      events = "BufWritePre",
-      desc = "Autoformat on save",
-      callback = function()
-        if not has_capability("textDocument/formatting", { bufnr = bufnr, }) then
-          del_buffer_autocmd(augroup_name, bufnr)
-        end
-        ---@diagnostic disable-next-line: undefined-field
-        if vim.b.autoformat_enabled or (vim.b.autoformat_enabled == nil and vim.g.autoformat_enabled) then
-          format(bufnr)
-        end
-      end,
-    })
-    wk.register({
-      lf = {
-        function()
-          format(bufnr)
-        end,
-        "Format with lsp",
-      },
-      uf = { require("user.utils.ui").toggle_buffer_autoformat, "Toggle autoformatting (buffer)", },
-      uF = { require("user.utils.ui").toggle_global_autoformat, "Toggle autoformatting (global)", },
-    }, { prefix = "<leader>", mode = { "n", "v", }, buffer = bufnr, })
+      ["<leader>lh"] = { vim.lsp.buf.signature_help, "Show signature help" },
+    }, { buffer = bufnr })
   end
 
   if client.supports_method("textDocument/documentHighlight") then
     local augroup_name = "user_lsp_document_highlight"
     add_buffer_autocmd(augroup_name, bufnr, {
       {
-        events = { "CursorHold", "CursorHoldI", },
+        events = { "CursorHold", "CursorHoldI" },
         desc = "Highlight references when cursor holds",
         callback = function()
-          if not has_capability("textDocument/documentHighlight", { bufnr = bufnr, }) then
+          if not has_capability("textDocument/documentHighlight", { bufnr = bufnr }) then
             del_buffer_autocmd(augroup_name, bufnr)
             return
           end
@@ -187,7 +155,7 @@ local on_lsp_attach = function(client, bufnr)
         end,
       },
       {
-        events = { "CursorMoved", "CursorMovedI", "BufLeave", },
+        events = { "CursorMoved", "CursorMovedI", "BufLeave" },
         desc = "Clear references when cursor moves",
         callback = function()
           vim.lsp.buf.clear_references()
@@ -216,7 +184,7 @@ local get_server_lsp_opts = function(server_name)
     server_settings = {
       json = {
         schemas = schemastore.json.schemas(),
-        validate = { enable = true, },
+        validate = { enable = true },
       },
     }
   elseif server_name == "yamlls" then
@@ -248,10 +216,10 @@ end
 function M.setup_vim_diagnostic()
   local icons = require("user.icons")
   local signs = {
-    { name = "DiagnosticSignError", text = icons.Diagnostic.Error, texthl = "DiagnosticSignError", },
-    { name = "DiagnosticSignWarn",  text = icons.Diagnostic.Warn,  texthl = "DiagnosticSignWarn", },
-    { name = "DiagnosticSignInfo",  text = icons.Diagnostic.Info,  texthl = "DiagnosticSignInfo", },
-    { name = "DiagnosticSignHint",  text = icons.Diagnostic.Hint,  texthl = "DiagnosticSignHint", },
+    { name = "DiagnosticSignError", text = icons.Diagnostic.Error, texthl = "DiagnosticSignError" },
+    { name = "DiagnosticSignWarn", text = icons.Diagnostic.Warn, texthl = "DiagnosticSignWarn" },
+    { name = "DiagnosticSignInfo", text = icons.Diagnostic.Info, texthl = "DiagnosticSignInfo" },
+    { name = "DiagnosticSignHint", text = icons.Diagnostic.Hint, texthl = "DiagnosticSignHint" },
   }
   for _, sign in ipairs(signs) do
     vim.fn.sign_define(sign.name, sign)
