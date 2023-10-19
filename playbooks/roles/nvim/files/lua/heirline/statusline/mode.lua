@@ -64,6 +64,6 @@ return {
   end,
   hl = function(self)
     local mode_color = self.mode_colors[self.mode_names[self.mode]]
-    return { bg = mode_color, bold = true, }
+    return { bg = mode_color, bold = true }
   end,
 }

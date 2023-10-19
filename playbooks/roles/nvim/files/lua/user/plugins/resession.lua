@@ -13,15 +13,15 @@ return {
 
     autocmd("VimLeavePre", {
       desc = "Save session on close",
-      group = augroup("user_resession_auto_save", { clear = true, }),
+      group = augroup("user_resession_auto_save", { clear = true }),
       callback = function()
-        resession.save(vim.fn.getcwd(), { notify = false, })
+        resession.save(vim.fn.getcwd(), { notify = false })
       end,
     })
 
     autocmd("VimEnter", {
       desc = "Restore session on open",
-      group = augroup("user_resession_auto_restore", { clear = true, }),
+      group = augroup("user_resession_auto_restore", { clear = true }),
       callback = function()
         if vim.fn.argc(-1) == 0 then
           pcall(resession.load, vim.fn.getcwd())

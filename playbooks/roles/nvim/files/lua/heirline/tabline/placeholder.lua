@@ -7,5 +7,7 @@ return {
       },
     }, vim.api.nvim_win_get_buf(self.winid))
   end,
-  provider = function(self) return string.rep(" ", vim.api.nvim_win_get_width(self.winid) + 1) end,
+  provider = function(self)
+    return string.rep(" ", vim.api.nvim_win_get_width(self.winid) + 1)
+  end,
 }

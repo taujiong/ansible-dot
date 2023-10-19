@@ -9,12 +9,12 @@ return {
     hint_icon = vim.fn.sign_getdefined("DiagnosticSignHint")[1].text,
   },
   init = function(self)
-    self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR, })
-    self.warns = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN, })
-    self.infos = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO, })
-    self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT, })
+    self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+    self.warns = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+    self.infos = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
+    self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
   end,
-  update = { "DiagnosticChanged", "BufEnter", },
+  update = { "DiagnosticChanged", "BufEnter" },
 
   require("heirline.component").padding(2),
 
@@ -23,7 +23,7 @@ return {
     provider = function(self)
       return self.errors > 0 and (" " .. self.error_icon .. self.errors)
     end,
-    hl = { fg = "red", },
+    hl = { fg = "red" },
   },
 
   -- warn
@@ -31,7 +31,7 @@ return {
     provider = function(self)
       return self.warns > 0 and (" " .. self.warn_icon .. self.warns)
     end,
-    hl = { fg = "yellow", },
+    hl = { fg = "yellow" },
   },
 
   -- info
@@ -39,7 +39,7 @@ return {
     provider = function(self)
       return self.infos > 0 and (" " .. self.info_icon .. self.infos)
     end,
-    hl = { fg = "green", },
+    hl = { fg = "green" },
   },
 
   -- hint
@@ -47,6 +47,6 @@ return {
     provider = function(self)
       return self.hints > 0 and (" " .. self.hint_icon .. self.hints)
     end,
-    hl = { fg = "sapphire", },
+    hl = { fg = "sapphire" },
   },
 }

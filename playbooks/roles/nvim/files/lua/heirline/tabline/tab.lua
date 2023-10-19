@@ -6,9 +6,9 @@ return {
   require("heirline.utils").make_tablist({
     hl = function(self)
       if self.is_active then
-        return { bg = "surface2", }
+        return { bg = "surface2" }
       else
-        return { fg = "darken_subtext0", bg = "surface0", }
+        return { fg = "darken_subtext0", bg = "surface0" }
       end
     end,
     provider = function(self)

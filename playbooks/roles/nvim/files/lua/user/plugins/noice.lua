@@ -2,7 +2,7 @@
 return {
   "folke/noice.nvim",
   event = "VeryLazy",
-  dependencies = { "MunifTanjim/nui.nvim", },
+  dependencies = { "MunifTanjim/nui.nvim" },
   -- for all available options, refer to `:help noice.nvim-noice-(nice,-noise,-notice)-configuration`
   ---@type NoiceConfig
   opts = {
@@ -32,14 +32,14 @@ return {
           kind = "",
           find = "written",
         },
-        opts = { skip = true, },
+        opts = { skip = true },
       },
     },
   },
   config = function(_, opts)
     require("noice").setup(opts)
     require("which-key").register({
-      ["<leader>fn"] = { "<cmd>Noice telescope<cr>", "Find notifications", },
+      ["<leader>fn"] = { "<cmd>Noice telescope<cr>", "Find notifications" },
     })
   end,
   init = function()
@@ -60,6 +60,6 @@ return {
         end,
         "Scroll up",
       },
-    }, { mode = { "n", "i", "s", }, expr = true, })
+    }, { mode = { "n", "i", "s" }, expr = true })
   end,
 }

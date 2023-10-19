@@ -16,3 +16,6 @@ export PATH="$VOLTA_HOME/bin:$PATH"
 
 # setup default editor
 export EDITOR=$(which nvim)
+
+# export mason bins
+export PATH="$PATH:$HOME/.local/share/nvim/mason/bin"

@@ -8,7 +8,7 @@ return {
       default_prompt = require("user.icons").UI.Selected .. " ",
     },
     select = {
-      backend = { "telescope", "nui", "builtin", },
+      backend = { "telescope", "nui", "builtin" },
     },
   },
 }

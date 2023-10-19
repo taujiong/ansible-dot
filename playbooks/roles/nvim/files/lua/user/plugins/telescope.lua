@@ -8,7 +8,7 @@ return {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "make",
     },
-    { "nvim-lua/plenary.nvim", },
+    { "nvim-lua/plenary.nvim" },
   },
   -- for all available options, refer to `:help telescope.setup`
   opts = function()
@@ -19,12 +19,12 @@ return {
       defaults = {
         prompt_prefix = icons.UI.Selected .. " ",
         selection_caret = icons.UI.Selected .. " ",
-        path_display = { "truncate", },
-        file_ignore_patterns = { "^.git/", "^node_modules/", },
+        path_display = { "truncate" },
+        file_ignore_patterns = { "^.git/", "^node_modules/" },
         sorting_strategy = "ascending",
         layout_config = {
-          horizontal = { prompt_position = "top", preview_width = 0.55, },
-          vertical = { mirror = false, },
+          horizontal = { prompt_position = "top", preview_width = 0.55 },
+          vertical = { mirror = false },
           width = 0.9,
           height = 0.9,
           preview_cutoff = 120,
@@ -53,44 +53,44 @@ return {
     require("telescope").load_extension("fzf")
     require("which-key").register({
       f = {
-        ["<cr>"] = { require("telescope.builtin").resume, "Resume previous search", },
-        ["'"] = { require("telescope.builtin").marks, "Find marks", },
-        w = { require("telescope.builtin").live_grep, "Find words", },
-        c = { require("telescope.builtin").grep_string, "Find word under cursor", },
-        C = { require("telescope.builtin").commands, "Find commands", },
-        f = { require("telescope.builtin").find_files, "Find files", },
+        ["<cr>"] = { require("telescope.builtin").resume, "Resume previous search" },
+        ["'"] = { require("telescope.builtin").marks, "Find marks" },
+        w = { require("telescope.builtin").live_grep, "Find words" },
+        c = { require("telescope.builtin").grep_string, "Find word under cursor" },
+        C = { require("telescope.builtin").commands, "Find commands" },
+        f = { require("telescope.builtin").find_files, "Find files" },
         F = {
           function()
-            require("telescope.builtin").find_files({ hidden = true, no_ignore = true, })
+            require("telescope.builtin").find_files({ hidden = true, no_ignore = true })
           end,
           "Find all files",
         },
-        h = { require("telescope.builtin").help_tags, "Find help", },
-        o = { require("telescope.builtin").oldfiles, "Find history", },
-        v = { require("telescope.builtin").vim_options, "Find vim options", },
-        r = { require("telescope.builtin").registers, "Find registers", },
-        p = { require("telescope.builtin").builtin, "Find all pickers", },
+        h = { require("telescope.builtin").help_tags, "Find help" },
+        o = { require("telescope.builtin").oldfiles, "Find history" },
+        v = { require("telescope.builtin").vim_options, "Find vim options" },
+        r = { require("telescope.builtin").registers, "Find registers" },
+        p = { require("telescope.builtin").builtin, "Find all pickers" },
       },
       g = {
         b = {
           function()
-            require("telescope.builtin").git_branches({ use_file_path = true, })
+            require("telescope.builtin").git_branches({ use_file_path = true })
           end,
           "Show git branches",
         },
         c = {
           function()
-            require("telescope.builtin").git_commits({ use_file_path = true, })
+            require("telescope.builtin").git_commits({ use_file_path = true })
           end,
           "Show git commits for current repository",
         },
         C = {
           function()
-            require("telescope.builtin").git_bcommits({ use_file_path = true, })
+            require("telescope.builtin").git_bcommits({ use_file_path = true })
           end,
           "Show git commits for current buffer",
         },
       },
-    }, { prefix = "<leader>", })
+    }, { prefix = "<leader>" })
   end,
 }

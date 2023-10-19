@@ -22,8 +22,7 @@ return {
         return vim.g.cmp_enabled
       end,
       completion = {
-        autocomplete = { "InsertEnter", "TextChanged", },
-
+        autocomplete = { "InsertEnter", "TextChanged" },
       },
       snippet = {
         expand = function(args)
@@ -31,19 +30,19 @@ return {
         end,
       },
       sources = {
-        { name = "nvim_lsp", priority = 1000, },
-        { name = "luasnip",  priority = 750, },
-        { name = "emoji",    priority = 700, },
-        { name = "path",     priority = 650, },
-        { name = "calc",     priority = 500, },
-        { name = "buffer",   priority = 250, },
+        { name = "nvim_lsp", priority = 1000 },
+        { name = "luasnip", priority = 750 },
+        { name = "emoji", priority = 700 },
+        { name = "path", priority = 650 },
+        { name = "calc", priority = 500 },
+        { name = "buffer", priority = 250 },
       },
       mapping = cmp.mapping.preset.insert({
-        ["<c-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select, }),
-        ["<c-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select, }),
+        ["<c-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+        ["<c-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
         ["<c-space>"] = cmp.mapping.complete(),
         ["<c-c>"] = cmp.mapping.abort(),
-        ["<cr>"] = cmp.mapping.confirm({ select = true, }),
+        ["<cr>"] = cmp.mapping.confirm({ select = true }),
         ["<tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.confirm({
@@ -65,7 +64,7 @@ return {
         end),
       }),
       formatting = {
-        fields = { "kind", "menu", "abbr", },
+        fields = { "kind", "menu", "abbr" },
         format = function(_, item)
           local icons = require("user.icons").LspKind
           if icons[item.kind] then

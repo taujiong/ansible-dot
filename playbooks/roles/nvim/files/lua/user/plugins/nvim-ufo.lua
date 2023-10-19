@@ -17,8 +17,12 @@ return {
       },
     },
     provider_selector = function(_, filetype, buftype)
-      if vim.tbl_contains({ "NeogitStatus", "NvimTree", }, filetype) then return "" end
-      if filetype == "" or buftype == "nofile" then return "indent" end
+      if vim.tbl_contains({ "NeogitStatus", "NvimTree" }, filetype) then
+        return ""
+      end
+      if filetype == "" or buftype == "nofile" then
+        return "indent"
+      end
 
       local function handleFallbackException(bufnr, err, providerName)
         if type(err) == "string" and err:match("UfoFallbackException") then
@@ -30,13 +34,13 @@ return {
 
       return function(bufnr)
         return require("ufo")
-            .getFolds(bufnr, "lsp")
-            :catch(function(err)
-              return handleFallbackException(bufnr, err, "treesitter")
-            end)
-            :catch(function(err)
-              return handleFallbackException(bufnr, err, "indent")
-            end)
+          .getFolds(bufnr, "lsp")
+          :catch(function(err)
+            return handleFallbackException(bufnr, err, "treesitter")
+          end)
+          :catch(function(err)
+            return handleFallbackException(bufnr, err, "indent")
+          end)
       end
     end,
   },
@@ -44,11 +48,11 @@ return {
     require("ufo").setup(opts)
     require("which-key").register({
       z = {
-        R = { require("ufo").openAllFolds, "Open all folds", },
-        M = { require("ufo").closeAllFolds, "Close all folds", },
-        r = { require("ufo").openFoldsExceptKinds, "Fold less", },
-        m = { require("ufo").closeFoldsWith, "Fold more", },
-        p = { require("ufo").peekFoldedLinesUnderCursor, "Peek fold", },
+        R = { require("ufo").openAllFolds, "Open all folds" },
+        M = { require("ufo").closeAllFolds, "Close all folds" },
+        r = { require("ufo").openFoldsExceptKinds, "Fold less" },
+        m = { require("ufo").closeFoldsWith, "Fold more" },
+        p = { require("ufo").peekFoldedLinesUnderCursor, "Peek fold" },
       },
     })
   end,

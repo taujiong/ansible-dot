@@ -12,14 +12,16 @@ return {
   ---@type TSConfig
   ---@diagnostic disable-next-line: missing-fields
   opts = {
-    ensure_installed = { "bash", "markdown", "markdown_inline", "regex", "vim", },
+    ensure_installed = { "bash", "markdown", "markdown_inline", "regex", "vim" },
     auto_install = true,
     autotag = {
       enable = true,
     },
     highlight = {
       enable = true,
-      disable = function(_, bufnr) return vim.b[bufnr].large_buf end,
+      disable = function(_, bufnr)
+        return vim.b[bufnr].large_buf
+      end,
     },
     indent = {
       enable = true,

@@ -6,7 +6,7 @@ return {
     condition = function()
       return vim.fn.reg_recording() ~= ""
     end,
-    update = { "RecordingEnter", "RecordingLeave", },
+    update = { "RecordingEnter", "RecordingLeave" },
     provider = function()
       local register = vim.fn.reg_recording()
       return register ~= "" and require("user.icons").Heirline.MacroRecording .. " @" .. register

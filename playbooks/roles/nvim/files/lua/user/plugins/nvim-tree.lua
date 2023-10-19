@@ -33,7 +33,7 @@ return {
       },
     },
     filters = {
-      custom = { "^\\.git$", },
+      custom = { "^\\.git$" },
     },
     actions = {
       open_file = {
@@ -53,7 +53,7 @@ return {
   config = function(_, opts)
     require("nvim-tree").setup(opts)
     require("which-key").register({
-      ["<leader>e"] = { require("nvim-tree.api").tree.toggle, "Toggle explorer", },
+      ["<leader>e"] = { require("nvim-tree.api").tree.toggle, "Toggle explorer" },
     })
 
     local api = require("nvim-tree.api")
@@ -62,7 +62,7 @@ return {
       vim.wo.statuscolumn = ""
     end)
     api.events.subscribe(Event.NodeRenamed, function(args)
-      local ts_clients = vim.lsp.get_active_clients({ name = "tsserver", })
+      local ts_clients = vim.lsp.get_active_clients({ name = "tsserver" })
       for _, ts_client in ipairs(ts_clients) do
         ts_client.request("workspace/executeCommand", {
           command = "_typescript.applyRenameFile",

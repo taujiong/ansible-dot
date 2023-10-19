@@ -24,6 +24,6 @@ return {
         "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
         "Toggle comment for selection",
       },
-    }, { mode = "v", })
+    }, { mode = "v" })
   end,
 }
