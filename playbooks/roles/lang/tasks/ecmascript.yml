@@ -5,7 +5,7 @@
 
 - name: Link .npmrc
   ansible.builtin.file:
-    src: '{{ ansible_env.PWD }}/roles/lang/files/.npmrc'
+    src: "{{ ansible_env.PWD }}/roles/lang/files/.npmrc"
     dest: ~/.npmrc
     state: link
 
@@ -19,7 +19,7 @@
   ansible.builtin.command:
     cmd: "volta install {{ item }}"
   ignore_errors: true
-  when: (item not in installed_volta_tools.stdout)
+  when: item not in installed_volta_tools.stdout
   loop:
     - node
     - pnpm

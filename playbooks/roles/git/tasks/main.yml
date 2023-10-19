@@ -1,12 +1,12 @@
 - name: Link .gitconfig
   ansible.builtin.file:
-    src: '{{ ansible_env.PWD }}/roles/git/files/.gitconfig'
+    src: "{{ ansible_env.PWD }}/roles/git/files/.gitconfig"
     dest: ~/.gitconfig
     state: link
 
 - name: Persistent git user info for work
   ansible.builtin.file:
-    src: '{{ ansible_env.PWD }}/roles/git/files/.gitconfig_work'
+    src: "{{ ansible_env.PWD }}/roles/git/files/.gitconfig_work"
     dest: ~/.gitconfig_work
     state: link
 

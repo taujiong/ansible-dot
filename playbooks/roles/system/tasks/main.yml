@@ -2,7 +2,7 @@
   ansible.builtin.file:
     path: ~/.config
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Gather installed homebrew formulae
   ansible.builtin.command:
@@ -20,7 +20,7 @@
   community.general.homebrew_cask:
     name: "homebrew/cask-fonts/{{ item }}"
   when: item not in installed_brew_casks.stdout_lines
-  loop: 
+  loop:
     - font-fira-code-nerd-font
     - font-hack-nerd-font
 

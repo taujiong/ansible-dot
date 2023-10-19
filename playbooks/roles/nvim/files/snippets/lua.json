@@ -1,8 +1,6 @@
 {
   "Lazy Spec": {
-    "prefix": [
-      "lazy"
-    ],
+    "prefix": ["lazy"],
     "description": "create single lazy spec to install plugins",
     "body": [
       "---@type LazySpec",
