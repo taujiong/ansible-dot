@@ -53,6 +53,7 @@ return {
       },
       winbar = {
         require("heirline.winbar.path"),
+        require("heirline.winbar.breadcrumb"),
       },
     }
   end,

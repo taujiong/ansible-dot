@@ -9,10 +9,8 @@ return {
     Array = " ",
     Boolean = " ",
     Class = " ",
-    Color = " ",
     Constant = " ",
     Constructor = " ",
-    Copilot = " ",
     Enum = " ",
     EnumMember = " ",
     Event = " ",
@@ -41,6 +39,7 @@ return {
     Unit = " ",
     Value = " ",
     Variable = " ",
+    Collapsed = "",
   },
   Heirline = {
     ArrowLeft = "",
