@@ -55,6 +55,7 @@ return {
     GitChange = "",
     GitDelete = "",
     MacroRecording = "",
+    sep = "",
   },
   WhichKeyPrefix = {
     ActiveLSP = "",

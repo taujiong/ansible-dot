@@ -27,7 +27,7 @@ autocmd("BufWinEnter", {
   callback = function(args)
     local buftype = vim.api.nvim_get_option_value("buftype", { buf = args.buf })
     if
-      vim.tbl_contains({ "help", "nofile", "quickfix", "", "acwrite", "nowrite" }, buftype)
+      vim.tbl_contains({ "help", "nofile", "quickfix", "acwrite", "nowrite" }, buftype)
       and vim.fn.maparg("q", "n") == ""
     then
       vim.keymap.set("n", "q", "<cmd>close<cr>", {
@@ -46,5 +46,21 @@ autocmd("TextYankPost", {
   pattern = "*",
   callback = function()
     vim.highlight.on_yank()
+  end,
+})
+
+local view_group = augroup("user_auto_view", { clear = true })
+autocmd({ "BufWritePost", "BufLeave" }, {
+  desc = "Save view with mkview for real files",
+  group = view_group,
+  callback = function()
+    vim.cmd.mkview({ mods = { emsg_silent = true } })
+  end,
+})
+autocmd("BufEnter", {
+  desc = "Try to load file view if available and enable view saving for real files",
+  group = view_group,
+  callback = function()
+    vim.cmd.loadview({ mods = { emsg_silent = true } })
   end,
 })

@@ -5,6 +5,13 @@ return {
   opts = function()
     return {
       opts = {
+        disable_winbar_cb = function(args)
+          return not vim.api.nvim_buf_is_valid(args.buf)
+            or require("heirline.conditions").buffer_matches({
+              buftype = { "help", "nofile", "quickfix", "terminal", "prompt" },
+              filetype = { "NvimTree", "NeogitStatus", "NeogitCommitMessage" },
+            }, args.buf)
+        end,
         colors = function()
           local palette = require("catppuccin.palettes").get_palette()
           local darken = require("catppuccin.utils.colors").darken
@@ -43,6 +50,9 @@ return {
         require("heirline.statuscolumn.number"),
         require("heirline.component").padding(1),
         require("heirline.statuscolumn.sign"),
+      },
+      winbar = {
+        require("heirline.winbar.path"),
       },
     }
   end,
