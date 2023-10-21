@@ -63,6 +63,7 @@ return {
     Tab = "󰓩",
     Window = "",
     Git = "󰊢",
+    Neoorg = "",
   },
   UI = {
     Selected = "❯",

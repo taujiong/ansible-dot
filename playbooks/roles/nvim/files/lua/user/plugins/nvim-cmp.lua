@@ -32,6 +32,7 @@ return {
       sources = {
         { name = "nvim_lsp", priority = 1000 },
         { name = "luasnip", priority = 750 },
+        { name = "neorg", priority = 725 },
         { name = "emoji", priority = 700 },
         { name = "path", priority = 650 },
         { name = "calc", priority = 500 },

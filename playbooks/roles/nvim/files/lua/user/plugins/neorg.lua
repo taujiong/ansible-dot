@@ -5,7 +5,6 @@ return {
   dependencies = { "nvim-lua/plenary.nvim" },
   ft = { "norg" },
   cmd = { "Neorg" },
-  -- for all available options, refer to: `:help `
   opts = {
     load = {
       -- https://github.com/nvim-neorg/neorg/wiki/Defaults
@@ -16,7 +15,9 @@ return {
           },
         },
       },
+      -- https://github.com/nvim-neorg/neorg/wiki/Concealer
       ["core.concealer"] = {},
+      -- https://github.com/nvim-neorg/neorg/wiki/Dirman
       ["core.dirman"] = {
         config = {
           workspaces = {
@@ -25,6 +26,21 @@ return {
           default_workspace = "notes",
         },
       },
+      -- https://github.com/nvim-neorg/neorg/wiki/Defaults
+      ["core.completion"] = {
+        config = {
+          engine = "nvim-cmp",
+        },
+      },
     },
   },
+  init = function()
+    require("which-key").register({
+      n = {
+        name = require("user.icons").WhichKeyPrefix.Neoorg .. " Neorg",
+        i = { "<cmd>Neorg index<cr>", "Open Neorg entry for current workspace" },
+        q = { "<cmd>Neorg return<cr>", "Quit all neorg buffers" },
+      },
+    }, { prefix = "<leader>" })
+  end,
 }

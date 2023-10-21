@@ -5,8 +5,8 @@ return {
   -- for all available options, refer to `:help MiniIndentScope.config`
   opts = {},
   init = function()
-    local excluded_file_types = { "NeogitPopup" }
-    local excluded_buffer_types = { "nofile", "help", "termminal", "prompt", "quickfix" }
+    local excluded_file_types = { "NeogitPopup", "norg" }
+    local excluded_buffer_types = { "nofile", "help", "terminal", "prompt", "quickfix" }
     vim.api.nvim_create_autocmd("FileType", {
       desc = "Disable indentscope for certain filetypes",
       pattern = excluded_file_types,
