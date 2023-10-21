@@ -9,8 +9,7 @@ require("user.utils.lazy").prepare()
 
 -- ensure lazy.nvim is ready
 local lazy_path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
--- TODO: remove `vim.loop` when neovim drop it
-if not (vim.uv or vim.loop).fs_stat(lazy_path) then
+if not vim.uv.fs_stat(lazy_path) then
   print("no lazy.nvim found, installing...")
   vim.fn.system({
     "git",

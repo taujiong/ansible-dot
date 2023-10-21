@@ -90,15 +90,6 @@ local on_lsp_attach = function(client, bufnr)
     }, { buffer = bufnr })
   end
 
-  if client.supports_method("textDocument/hover") then
-    -- TODO: Remove mapping after dropping support for Neovim v0.9, it's automatic
-    if vim.fn.has("nvim-0.10") == 0 then
-      wk.register({
-        K = { vim.lsp.buf.hover, "Hover symbol details" },
-      }, { buffer = bufnr })
-    end
-  end
-
   if client.supports_method("textDocument/implementation") then
     wk.register({
       gI = { require("telescope.builtin").lsp_implementations, "Implementation of current symbol" },

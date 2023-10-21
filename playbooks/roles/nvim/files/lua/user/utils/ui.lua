@@ -32,11 +32,8 @@ end
 function M.toggle_buffer_inlay_hints(bufnr)
   bufnr = bufnr or 0
   vim.b[bufnr].inlay_hints_enabled = not vim.b[bufnr].inlay_hints_enabled
-  -- TODO: remove check after dropping support for Neovim v0.9
-  if vim.lsp.inlay_hint then
-    vim.lsp.inlay_hint(bufnr, vim.b[bufnr].inlay_hints_enabled)
-    vim.notify(string.format("Inlay hints %s", bool2str(vim.b[bufnr].inlay_hints_enabled)))
-  end
+  vim.lsp.inlay_hint(bufnr, vim.b[bufnr].inlay_hints_enabled)
+  vim.notify(string.format("Inlay hints %s", bool2str(vim.b[bufnr].inlay_hints_enabled)))
 end
 
 function M.toggle_cmp()

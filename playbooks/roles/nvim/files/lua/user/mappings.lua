@@ -6,8 +6,6 @@ wk.register({
   k = { "v:count == 0 ? 'gk' : 'k'", "Move cursor up", expr = true },
   x = { '"_x', "Cut char without copy" },
   xx = { '"_dd', "Cut line without copy" },
-  -- TODO: Remove when dropping support for <Neovim v0.10
-  gx = { require("user.utils.system").open_with_system, "Open with system app" },
   ["<tab>"] = { "<cmd>bn<cr>", "Next buffer" },
   ["<s-tab>"] = { "<cmd>bp<cr>", "Previous buffer" },
   ["\\"] = { "<cmd>split<cr>", "Split horizontally" },
@@ -69,6 +67,8 @@ wk.register({
     name = icons.WhichKeyPrefix.ActiveLSP .. " Lsp",
     g = { "<cmd>LspLog<cr>", "Show lsp log" },
     m = { "<cmd>LspRestart<cr>", "Restart lsp" },
+    t = { "<cmd>InspectTree<cr>", "Show syntax tree" },
+    q = { "<cmd>EditQuery<cr>", "Query syntax tree" },
   },
   p = {
     name = icons.WhichKeyPrefix.Package .. " Packages",
@@ -78,7 +78,7 @@ wk.register({
     l = { "<cmd>Neoconf lsp<cr>", "Show lsp settings" },
     n = { "<cmd>Neoconf show<cr>", "Show merged neoconf" },
   },
-  q = { "<cmd>q<cr>", "Quit" },
+  q = { "<cmd>close<cr>", "Quit" },
   u = {
     name = require("user.icons").WhichKeyPrefix.Window .. " UI/UX",
     c = { require("user.utils.ui").toggle_cmp, "Toggle autocompletion" },
