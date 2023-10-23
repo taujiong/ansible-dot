@@ -34,6 +34,14 @@ return {
       },
     },
   },
+  config = function(_, opts)
+    require("neorg").setup(opts)
+    require("cmp").setup.filetype("norg", {
+      sources = {
+        { name = "neorg", priority = 725 },
+      },
+    })
+  end,
   init = function()
     require("which-key").register({
       n = {

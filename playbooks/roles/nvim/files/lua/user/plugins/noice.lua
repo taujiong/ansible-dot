@@ -7,9 +7,6 @@ return {
   ---@type NoiceConfig
   opts = {
     lsp = {
-      progress = {
-        enabled = true,
-      },
       message = {
         enabled = false,
       },
@@ -24,6 +21,12 @@ return {
       command_palette = true,
       long_message_to_split = true,
       lsp_doc_border = true,
+      cmdline_output_to_split = true,
+    },
+    views = {
+      split = {
+        enter = true,
+      },
     },
     routes = {
       {
@@ -32,7 +35,9 @@ return {
           kind = "",
           find = "written",
         },
-        opts = { skip = true },
+        opts = {
+          skip = true,
+        },
       },
     },
   },
