@@ -1,7 +1,7 @@
 ---@type LazySpec
 return {
   "stevearc/resession.nvim",
-  event = { "VimEnter" },
+  lazy = false,
   -- for all available options, refer to: `:help resession-options`
   opts = {
     dir = "resession",
