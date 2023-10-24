@@ -2,6 +2,9 @@
 return {
   "folke/noice.nvim",
   event = { "VeryLazy" },
+  keys = {
+    { "<leader>fn", "<cmd>Noice telescope<cr>", desc = "Find notifications" },
+  },
   -- for all available options, refer to `:help noice.nvim-noice-(nice,-noise,-notice)-configuration`
   ---@type NoiceConfig
   opts = {
@@ -51,9 +54,6 @@ return {
   },
   config = function(_, opts)
     require("noice").setup(opts)
-    require("which-key").register({
-      ["<leader>fn"] = { "<cmd>Noice telescope<cr>", "Find notifications" },
-    })
   end,
   init = function()
     require("which-key").register({
