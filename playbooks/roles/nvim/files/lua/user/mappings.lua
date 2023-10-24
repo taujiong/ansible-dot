@@ -8,8 +8,6 @@ wk.register({
   xx = { '"_dd', "Cut line without copy" },
   ["<tab>"] = { "<cmd>bn<cr>", "Next buffer" },
   ["<s-tab>"] = { "<cmd>bp<cr>", "Previous buffer" },
-  ["\\"] = { "<cmd>split<cr>", "Split horizontally" },
-  ["|"] = { "<cmd>vsplit<cr>", "Split vertically" },
   ["<m-j>"] = { "<cmd>m .+1<cr>==", "Move line down" },
   ["<m-k>"] = { "<cmd>m .-2<cr>==", "Move line up" },
   ["<c-h>"] = { "<c-w>h", "Go to left window" },

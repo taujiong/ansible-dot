@@ -35,7 +35,7 @@ local function del_buffer_autocmd(augroup, bufnr)
 end
 
 ---@param bufnr number
-local on_lsp_attach = function(client, bufnr)
+local function on_lsp_attach(client, bufnr)
   local wk = require("which-key")
   wk.register({
     ["[d"] = { vim.diagnostic.goto_prev, "Previous diagnostic" },
@@ -181,7 +181,7 @@ local on_lsp_attach = function(client, bufnr)
   end
 end
 
-local get_server_lsp_opts = function(server_name)
+local function get_server_lsp_opts(server_name)
   local lsp_capabilities = vim.lsp.protocol.make_client_capabilities()
   local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
   local ufo_capabilities = {
