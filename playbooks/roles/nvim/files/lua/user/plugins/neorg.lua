@@ -2,9 +2,12 @@
 return {
   "nvim-neorg/neorg",
   build = ":Neorg sync-parsers",
-  dependencies = { "nvim-lua/plenary.nvim" },
   ft = { "norg" },
   cmd = { "Neorg" },
+  keys = {
+    { "<leader>ni", "<cmd>Neorg index<cr>", desc = "Open Neorg entry for current workspace" },
+    { "<leader>nq", "<cmd>Neorg return<cr>", desc = "Quit all neorg buffers" },
+  },
   opts = {
     load = {
       -- https://github.com/nvim-neorg/neorg/wiki/Defaults
@@ -36,19 +39,11 @@ return {
   },
   config = function(_, opts)
     require("neorg").setup(opts)
+    ---@diagnostic disable-next-line: missing-fields
     require("cmp").setup.filetype("norg", {
       sources = {
         { name = "neorg", priority = 725 },
       },
     })
-  end,
-  init = function()
-    require("which-key").register({
-      n = {
-        name = require("user.icons").WhichKeyPrefix.Neoorg .. " Neorg",
-        i = { "<cmd>Neorg index<cr>", "Open Neorg entry for current workspace" },
-        q = { "<cmd>Neorg return<cr>", "Quit all neorg buffers" },
-      },
-    }, { prefix = "<leader>" })
   end,
 }

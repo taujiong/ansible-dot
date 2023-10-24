@@ -1,6 +1,7 @@
 ---@type LazySpec
 return {
   "rebelot/heirline.nvim",
+  event = { "VimEnter" },
   -- for all available options, refer to: https://github.com/rebelot/heirline.nvim/blob/master/cookbook.md
   opts = function()
     return {
@@ -14,6 +15,9 @@ return {
         end,
         colors = function()
           local palette = require("catppuccin.palettes").get_palette()
+          if not palette then
+            return {}
+          end
           local darken = require("catppuccin.utils.colors").darken
           local colors = {}
           for name, color in pairs(palette) do

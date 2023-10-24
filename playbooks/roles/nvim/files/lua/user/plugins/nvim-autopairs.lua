@@ -1,7 +1,7 @@
 ---@type LazySpec
 return {
   "windwp/nvim-autopairs",
-  event = "InsertEnter",
+  event = { "InsertEnter" },
   -- for all available options, refer to `:help nvim-autopairs-default-values`
   opts = {
     check_ts = true,

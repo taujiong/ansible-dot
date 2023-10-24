@@ -1,7 +1,7 @@
 ---@type LazySpec
 return {
   "echasnovski/mini.indentscope",
-  event = "BufEnter",
+  event = { "BufEnter" },
   -- for all available options, refer to `:help MiniIndentScope.config`
   opts = {},
   init = function()

@@ -17,6 +17,8 @@ wk.register({
   ["<c-k>"] = { "<c-w>k", "Go to upper window" },
   ["<c-l>"] = { "<c-w>l", "Go to right window" },
   ["<c-s>"] = { "<cmd>w<cr>", "Save file" },
+  dm = { name = "marks" },
+  m = { name = "Marks" },
 })
 
 wk.register({
@@ -70,6 +72,7 @@ wk.register({
     t = { "<cmd>InspectTree<cr>", "Show syntax tree" },
     q = { "<cmd>EditQuery<cr>", "Query syntax tree" },
   },
+  n = { name = icons.WhichKeyPrefix.Neorg .. " Neorg" },
   p = {
     name = icons.WhichKeyPrefix.Package .. " Packages",
     m = { "<cmd>Mason<cr>", "Show mason packages" },
@@ -81,9 +84,9 @@ wk.register({
   q = { "<cmd>close<cr>", "Quit" },
   u = {
     name = require("user.icons").WhichKeyPrefix.Window .. " UI/UX",
-    c = { require("user.utils.ui").toggle_cmp, "Toggle autocompletion" },
-    p = { require("user.utils.ui").toggle_autopairs, "Toggle autopairs" },
-    r = { require("user.utils.ui").toggle_relative_number, "Toggle relative number" },
-    w = { require("user.utils.ui").toggle_wrap, "Toggle wrap" },
+    c = { require("user.utils.customize").toggle_cmp, "Toggle autocompletion" },
+    p = { require("user.utils.customize").toggle_autopairs, "Toggle autopairs" },
+    r = { require("user.utils.customize").toggle_relative_number, "Toggle relative number" },
+    w = { require("user.utils.customize").toggle_wrap, "Toggle wrap" },
   },
 }, { prefix = "<leader>" })

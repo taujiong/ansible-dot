@@ -6,8 +6,8 @@ return {
     "williamboman/mason-lspconfig.nvim",
     "folke/neoconf.nvim",
     "folke/neodev.nvim",
-    "b0o/SchemaStore.nvim",
   },
+  event = { "BufEnter" },
   opts = {
     ---@type LuaDevOptions
     neodev = {},

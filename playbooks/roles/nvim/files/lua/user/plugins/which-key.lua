@@ -1,7 +1,7 @@
 ---@type LazySpec
 return {
   "folke/which-key.nvim",
-  event = "VeryLazy",
+  event = { "VeryLazy" },
   -- for all available options, refer to `:help `
   ---@type Options
   opts = {

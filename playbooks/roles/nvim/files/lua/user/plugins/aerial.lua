@@ -1,7 +1,10 @@
 ---@type LazySpec
 return {
   "stevearc/aerial.nvim",
-  event = "VeryLazy",
+  event = { "BufEnter" },
+  keys = {
+    { "<leader>ls", "<cmd>AerialToggle<cr>", desc = "Show symbols outline" },
+  },
   -- for all available options, refer to: `:help aerial-options`
   opts = {
     backends = { "lsp", "treesitter", "markdown", "man" },
@@ -12,10 +15,4 @@ return {
     show_guides = true,
     attach_mode = "global",
   },
-  config = function(_, opts)
-    require("aerial").setup(opts)
-    require("which-key").register({
-      ls = { "<cmd>AerialToggle<cr>", "Show symbols outline" },
-    }, { prefix = "<leader>" })
-  end,
 }

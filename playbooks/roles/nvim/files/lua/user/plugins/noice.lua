@@ -1,8 +1,7 @@
 ---@type LazySpec
 return {
   "folke/noice.nvim",
-  event = "VeryLazy",
-  dependencies = { "MunifTanjim/nui.nvim" },
+  event = { "VeryLazy" },
   -- for all available options, refer to `:help noice.nvim-noice-(nice,-noise,-notice)-configuration`
   ---@type NoiceConfig
   opts = {
@@ -36,6 +35,15 @@ return {
           find = "written",
         },
         opts = {
+          skip = true,
+        },
+      },
+      -- TODO: remove this when nvim-cmp fix this issue
+      {
+        filter = {
+          find = "parse_snippet",
+        },
+        opt = {
           skip = true,
         },
       },

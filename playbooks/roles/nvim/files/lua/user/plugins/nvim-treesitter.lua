@@ -2,12 +2,12 @@
 return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
-  event = "VeryLazy",
   dependencies = {
     "JoosepAlviste/nvim-ts-context-commentstring",
     "nvim-treesitter/nvim-treesitter-textobjects",
     "windwp/nvim-ts-autotag",
   },
+  event = { "VeryLazy" },
   -- for all available options, refer to `:help nvim-treesitter-quickstart`
   ---@type TSConfig
   ---@diagnostic disable-next-line: missing-fields

@@ -2,6 +2,7 @@
 return {
   "catppuccin/nvim",
   name = "catppuccin",
+  priority = 1000,
   -- for all available options, refer to `:help catppuccin-configuration`
   ---@type CatppuccinOptions
   opts = {
@@ -9,7 +10,7 @@ return {
     flavour = "frappe",
     term_colors = true,
     integrations = {
-      aerial = false,
+      aerial = true,
       cmp = true,
       dap = {
         enabled = false,

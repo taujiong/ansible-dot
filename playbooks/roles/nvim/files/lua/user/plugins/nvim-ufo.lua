@@ -1,12 +1,50 @@
 ---@type LazySpec
 return {
   "kevinhwang91/nvim-ufo",
-  event = "VeryLazy",
   dependencies = {
     "kevinhwang91/promise-async",
   },
+  event = { "BufEnter" },
+  keys = {
+    {
+      "zR",
+      function()
+        require("ufo").openAllFolds()
+      end,
+      desc = "Open all folds",
+    },
+    {
+      "zM",
+      function()
+        require("ufo").closeAllFolds()
+      end,
+      desc = "Close all folds",
+    },
+    {
+      "zr",
+      function()
+        require("ufo").openFoldsExceptKinds()
+      end,
+      desc = "Fold less",
+    },
+    {
+      "zm",
+      function()
+        require("ufo").closeFoldsWith()
+      end,
+      desc = "Fold more",
+    },
+    {
+      "zp",
+      function()
+        require("ufo").peekFoldedLinesUnderCursor()
+      end,
+      desc = "Peek fold",
+    },
+  },
   -- for all available options, refer to `:help nvim-ufo.txt`
   ---@type UfoConfig
+  ---@diagnostic disable-next-line: missing-fields
   opts = {
     preview = {
       mappings = {
@@ -44,16 +82,4 @@ return {
       end
     end,
   },
-  config = function(_, opts)
-    require("ufo").setup(opts)
-    require("which-key").register({
-      z = {
-        R = { require("ufo").openAllFolds, "Open all folds" },
-        M = { require("ufo").closeAllFolds, "Close all folds" },
-        r = { require("ufo").openFoldsExceptKinds, "Fold less" },
-        m = { require("ufo").closeFoldsWith, "Fold more" },
-        p = { require("ufo").peekFoldedLinesUnderCursor, "Peek fold" },
-      },
-    })
-  end,
 }

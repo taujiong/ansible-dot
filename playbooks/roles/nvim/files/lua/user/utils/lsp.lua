@@ -1,7 +1,7 @@
 local M = {}
 
 local function has_capability(capability, filter)
-  for _, client in ipairs(vim.lsp.get_active_clients(filter)) do
+  for _, client in ipairs(vim.lsp.get_clients(filter)) do
     if client.supports_method(capability) then
       return true
     end
@@ -41,7 +41,12 @@ local on_lsp_attach = function(client, bufnr)
     ["[d"] = { vim.diagnostic.goto_prev, "Previous diagnostic" },
     ["]d"] = { vim.diagnostic.goto_next, "Next diagnostic" },
     ["gl"] = { vim.diagnostic.open_float, "Diagnostic on current line" },
-    ["<leader>fd"] = { require("telescope.builtin").diagnostics, "Find diagnostics" },
+    ["<leader>fd"] = {
+      function()
+        require("telescope.builtin").diagnostics()
+      end,
+      "Find diagnostics",
+    },
     ["<leader>li"] = { "<cmd>LspInfo<cr>", "Show lsp information" },
   }, { buffer = bufnr })
 
@@ -80,19 +85,34 @@ local on_lsp_attach = function(client, bufnr)
 
   if client.supports_method("textDocument/definition") then
     wk.register({
-      gd = { require("telescope.builtin").lsp_definitions, "Show the definition of current symbol" },
+      gd = {
+        function()
+          require("telescope.builtin").lsp_definitions()
+        end,
+        "Show the definition of current symbol",
+      },
     }, { buffer = bufnr })
   end
 
   if client.supports_method("textDocument/typeDefinition") then
     wk.register({
-      gD = { require("telescope.builtin").lsp_type_definitions, "Definition of current type" },
+      gD = {
+        function()
+          require("telescope.builtin").lsp_type_definitions()
+        end,
+        "Definition of current type",
+      },
     }, { buffer = bufnr })
   end
 
   if client.supports_method("textDocument/implementation") then
     wk.register({
-      gI = { require("telescope.builtin").lsp_implementations, "Implementation of current symbol" },
+      gI = {
+        function()
+          require("telescope.builtin").lsp_implementations()
+        end,
+        "Implementation of current symbol",
+      },
     }, { buffer = bufnr })
   end
 
@@ -104,7 +124,7 @@ local on_lsp_attach = function(client, bufnr)
         wk.register({
           ["<leader>uH"] = {
             function()
-              require("user.utils.ui").toggle_buffer_inlay_hints(bufnr)
+              require("user.utils.customize").toggle_buffer_inlay_hints(bufnr)
             end,
             "Toggle LSP inlay hints (buffer)",
           },
@@ -115,7 +135,12 @@ local on_lsp_attach = function(client, bufnr)
 
   if client.supports_method("textDocument/references") then
     wk.register({
-      gr = { require("telescope.builtin").lsp_references, "References of current symbol" },
+      gr = {
+        function()
+          require("telescope.builtin").lsp_references()
+        end,
+        "References of current symbol",
+      },
     }, { buffer = bufnr })
   end
 
@@ -194,16 +219,6 @@ local get_server_lsp_opts = function(server_name)
   }
 end
 
-local setup_server_handler = function()
-  local lspconfig = require("lspconfig")
-  require("mason-lspconfig").setup_handlers({
-    function(server_name)
-      local server_opts = get_server_lsp_opts(server_name)
-      lspconfig[server_name].setup(server_opts)
-    end,
-  })
-end
-
 function M.setup_vim_diagnostic()
   local icons = require("user.icons")
   local signs = {
@@ -228,7 +243,13 @@ function M.setup_vim_diagnostic()
 end
 
 function M.setup()
-  setup_server_handler()
+  local lspconfig = require("lspconfig")
+  require("mason-lspconfig").setup_handlers({
+    function(server_name)
+      local server_opts = get_server_lsp_opts(server_name)
+      lspconfig[server_name].setup(server_opts)
+    end,
+  })
 end
 
 return M

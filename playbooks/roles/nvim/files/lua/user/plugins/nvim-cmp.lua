@@ -2,7 +2,6 @@
 ---@type LazySpec
 return {
   "hrsh7th/nvim-cmp",
-  event = "InsertEnter",
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
     "saadparwaiz1/cmp_luasnip",
@@ -11,9 +10,11 @@ return {
     "hrsh7th/cmp-calc",
     "hrsh7th/cmp-emoji",
   },
+  event = { "InsertEnter" },
   -- for all available options, refer to `:help cmp-config`
   opts = function()
     local cmp = require("cmp")
+    local cmp_types = require("cmp.types")
     local luasnip = require("luasnip")
 
     ---@type cmp.ConfigSchema
@@ -22,7 +23,14 @@ return {
         return vim.g.cmp_enabled
       end,
       completion = {
-        autocomplete = { "InsertEnter", "TextChanged" },
+        autocomplete = {
+          cmp_types.cmp.TriggerEvent.InsertEnter,
+          cmp_types.cmp.TriggerEvent.TextChanged,
+        },
+      },
+      window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
       },
       snippet = {
         expand = function(args)

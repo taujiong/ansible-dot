@@ -1,7 +1,23 @@
 ---@type LazySpec
 return {
   "stevearc/conform.nvim",
-  event = "VeryLazy",
+  event = { "BufEnter" },
+  keys = {
+    {
+      "<leader>lf",
+      function()
+        require("conform").format({
+          timeout_ms = 500,
+          lsp_fallback = true,
+        })
+      end,
+      desc = "Format the file (in normal mode) or the range (in visual mode)",
+      mode = { "n", "v" },
+    },
+    { "<leader>pf", "<cmd>ConformInfo<cr>", desc = "Show conform formatters" },
+    { "<leader>uf", require("user.utils.customize").toggle_buffer_autoformat, desc = "Toggle autoformatting (buffer)" },
+    { "<leader>uF", require("user.utils.customize").toggle_global_autoformat, desc = "Toggle autoformatting (global)" },
+  },
   -- for all available options, refer to `:help conform-options`
   opts = {
     formatters_by_ft = {
@@ -39,20 +55,5 @@ return {
     conform.setup(opts)
 
     require("user.utils.mason").ensure_mason_package_installed({ "stylua", "prettierd" })
-
-    require("which-key").register({
-      lf = {
-        function()
-          conform.format({
-            timeout_ms = 500,
-            lsp_fallback = true,
-          })
-        end,
-        "Format the file (in normal mode) or the range (in visual mode)",
-      },
-      pf = { "<cmd>ConformInfo<cr>", "Show conform formatters" },
-      uf = { require("user.utils.ui").toggle_buffer_autoformat, "Toggle autoformatting (buffer)" },
-      uF = { require("user.utils.ui").toggle_global_autoformat, "Toggle autoformatting (global)" },
-    }, { prefix = "<leader>", mode = { "n", "v" } })
   end,
 }

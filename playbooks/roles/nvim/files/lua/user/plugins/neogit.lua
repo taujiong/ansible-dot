@@ -1,7 +1,15 @@
 ---@type LazySpec
 return {
   "NeogitOrg/neogit",
-  event = "VeryLazy",
+  keys = {
+    {
+      "<leader>gg",
+      function()
+        require("neogit").open()
+      end,
+      desc = "Open neogit",
+    },
+  },
   -- for all available options, refer to `:help neogit`
   ---@type NeogitConfig
   opts = {
@@ -18,12 +26,6 @@ return {
       section = { require("user.icons").Heirline.FoldClosed, require("user.icons").Heirline.FoldOpened },
     },
   },
-  config = function(_, opts)
-    require("neogit").setup(opts)
-    require("which-key").register({
-      ["<leader>gg"] = { require("neogit").open, "Open neogit" },
-    })
-  end,
   init = function()
     vim.api.nvim_create_autocmd("FileType", {
       desc = "Disable statuscolumn for NeogitStatus",

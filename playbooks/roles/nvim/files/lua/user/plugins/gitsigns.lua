@@ -1,24 +1,79 @@
 ---@type LazySpec
 return {
   "lewis6991/gitsigns.nvim",
-  event = "BufEnter",
+  event = { "BufEnter" },
+  keys = {
+    {
+      "[g",
+      function()
+        require("gitsigns").prev_hunk()
+      end,
+      desc = "Previous git hunk",
+    },
+    {
+      "]g",
+      function()
+        require("gitsigns").next_hunk()
+      end,
+      desc = "Next git hunk",
+    },
+    {
+      "<leader>gl",
+      function()
+        require("gitsigns").blame_line()
+      end,
+      desc = "View git blame",
+    },
+    {
+      "<leader>gp",
+      function()
+        require("gitsigns").preview_hunk()
+      end,
+      desc = "Preview git hunk",
+    },
+    {
+      "<leader>gh",
+      function()
+        require("gitsigns").reset_hunk()
+      end,
+      desc = "Reset git hunk",
+    },
+    {
+      "<leader>gH",
+      function()
+        require("gitsigns").reset_buffer()
+      end,
+      desc = "Reset git buffer",
+    },
+    {
+      "<leader>gs",
+      function()
+        require("gitsigns").stage_hunk()
+      end,
+      desc = "Stage git hunk",
+    },
+    {
+      "<leader>gS",
+      function()
+        require("gitsigns").state_buffer()
+      end,
+      desc = "Stage git buffer",
+    },
+    {
+      "<leader>gu",
+      function()
+        require("gitsigns").undo_stage_hunk()
+      end,
+      desc = "Unstage git buffer",
+    },
+    {
+      "<leader>gd",
+      function()
+        require("gitsigns").diffthis()
+      end,
+      desc = "View git diff",
+    },
+  },
   -- for all available options, refer to `:help gitsigns-config`
   opts = {},
-  config = function(_, opts)
-    require("gitsigns").setup(opts)
-    require("which-key").register({
-      ["[g"] = { require("gitsigns").prev_hunk, "Previous git hunk" },
-      ["]g"] = { require("gitsigns").next_hunk, "Next git hunk" },
-      ["<leader>g"] = {
-        l = { require("gitsigns").blame_line, "View git blame" },
-        p = { require("gitsigns").preview_hunk, "Preview git hunk" },
-        h = { require("gitsigns").reset_hunk, "Reset git hunk" },
-        H = { require("gitsigns").reset_buffer, "Reset git buffer" },
-        s = { require("gitsigns").stage_hunk, "Stage git hunk" },
-        S = { require("gitsigns").state_buffer, "Stage git buffer" },
-        u = { require("gitsigns").undo_stage_hunk, "Unstage git buffer" },
-        d = { require("gitsigns").diffthis, "View git diff" },
-      },
-    })
-  end,
 }

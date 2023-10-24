@@ -1,7 +1,7 @@
 ---@type LazySpec
 return {
   "folke/flash.nvim",
-  event = "BufEnter",
+  event = { "BufEnter" },
   -- for all available options, refer to `:help flash.nvim-flash.nvim-configuration`
   ---@type Flash.Config
   opts = {

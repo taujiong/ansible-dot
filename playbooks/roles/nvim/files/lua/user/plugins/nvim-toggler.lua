@@ -1,7 +1,15 @@
 ---@type LazySpec
 return {
   "nguyenvukhang/nvim-toggler",
-  event = { "BufEnter" },
+  keys = {
+    {
+      "<leader>i",
+      function()
+        require("nvim-toggler").toggle()
+      end,
+      desc = "Toggle cursor word",
+    },
+  },
   -- for all available options, refer to `:help nvim-toggler-nvim-toggler`
   opts = {
     inverses = {
@@ -9,10 +17,4 @@ return {
       ["good"] = "bad",
     },
   },
-  config = function(_, opts)
-    require("nvim-toggler").setup(opts)
-    require("which-key").register({
-      ["<leader>i"] = { desc = "Toggle cursor word" },
-    })
-  end,
 }
