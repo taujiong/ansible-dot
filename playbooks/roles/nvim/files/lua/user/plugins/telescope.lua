@@ -9,6 +9,7 @@ return {
     },
   },
   keys = {
+    { "<leader>ft" },
     {
       "<leader>f<cr>",
       function()
@@ -156,5 +157,13 @@ return {
   config = function(_, opts)
     require("telescope").setup(opts)
     require("telescope").load_extension("fzf")
+
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "TelescopePreviewerLoaded",
+      callback = function()
+        vim.wo.number = true
+        vim.wo.wrap = true
+      end,
+    })
   end,
 }
