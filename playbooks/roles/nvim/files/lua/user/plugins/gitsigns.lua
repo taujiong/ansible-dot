@@ -75,5 +75,10 @@ return {
     },
   },
   -- for all available options, refer to `:help gitsigns-config`
-  opts = {},
+  opts = {
+    max_file_length = vim.g.max_file.lines,
+    preview_config = {
+      border = "rounded",
+    },
+  },
 }

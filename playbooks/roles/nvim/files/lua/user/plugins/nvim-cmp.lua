@@ -9,6 +9,15 @@ return {
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-calc",
     "hrsh7th/cmp-emoji",
+    {
+      "L3MON4D3/LuaSnip",
+      build = vim.fn.has("win32") == 0
+          and "echo 'jsregexp is optional, so not a big deal if it fails to build\n'; make install_jsregexp"
+        or nil,
+      config = function()
+        require("luasnip.loaders.from_vscode").lazy_load({ paths = "./snippets" })
+      end,
+    },
   },
   event = { "InsertEnter" },
   -- for all available options, refer to `:help cmp-config`
@@ -34,7 +43,7 @@ return {
       },
       snippet = {
         expand = function(args)
-          require("luasnip").lsp_expand(args.body)
+          luasnip.lsp_expand(args.body)
         end,
       },
       sources = {

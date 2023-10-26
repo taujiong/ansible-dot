@@ -6,9 +6,12 @@ return {
   -- for all available options, refer to `:help catppuccin-configuration`
   ---@type CatppuccinOptions
   opts = {
-    transparent_background = true,
     flavour = "frappe",
+    transparent_background = true,
     term_colors = true,
+    styles = {
+      conditionals = {},
+    },
     integrations = {
       aerial = true,
       cmp = true,
@@ -21,7 +24,9 @@ return {
       lsp_trouble = true,
       markdown = true,
       mason = true,
-      mini = true,
+      mini = {
+        enabled = true,
+      },
       native_lsp = {
         enabled = true,
       },
@@ -33,6 +38,7 @@ return {
         enabled = true,
         style = "nvchad",
       },
+      treesitter = true,
       ufo = true,
       which_key = true,
     },

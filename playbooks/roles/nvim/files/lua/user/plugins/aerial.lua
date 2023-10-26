@@ -11,8 +11,13 @@ return {
     icons = require("user.icons").LspKind,
     disable_max_lines = vim.g.max_file.lines,
     disable_max_size = vim.g.max_file.size,
+    autojump = true,
     filter_kind = false,
     show_guides = true,
     attach_mode = "global",
+    layout = {
+      max_width = { 60, 0.4 },
+      min_width = { 40, 0.2 },
+    },
   },
 }

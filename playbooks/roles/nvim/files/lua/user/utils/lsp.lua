@@ -232,7 +232,6 @@ function M.setup_vim_diagnostic()
   end
   vim.diagnostic.config({
     update_in_insert = true,
-    underline = false,
     severity_sort = true,
     float = {
       focused = false,

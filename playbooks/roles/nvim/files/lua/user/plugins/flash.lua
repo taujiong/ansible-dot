@@ -9,7 +9,9 @@ return {
       multi_window = false,
     },
     modes = {
-      char = { enabled = false },
+      char = {
+        enabled = false,
+      },
     },
     prompt = {
       enabled = false,

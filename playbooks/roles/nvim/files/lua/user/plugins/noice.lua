@@ -41,15 +41,6 @@ return {
           skip = true,
         },
       },
-      -- TODO: remove this when nvim-cmp fix this issue
-      {
-        filter = {
-          find = "parse_snippet",
-        },
-        opt = {
-          skip = true,
-        },
-      },
     },
   },
   config = function(_, opts)

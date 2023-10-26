@@ -20,7 +20,13 @@ return {
       },
     },
     ---@type MasonSettings
-    mason = {},
+    mason = {
+      log_level = vim.log.levels.WARN,
+      ui = {
+        border = "rounded",
+        height = 0.8,
+      },
+    },
     ---@type MasonLspconfigSettings
     mason_lspconfig = {
       automatic_installation = true,

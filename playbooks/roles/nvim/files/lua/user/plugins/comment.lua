@@ -21,10 +21,9 @@ return {
     },
   },
   -- for all available options, refer to `:help comment.config`
-  opts = {},
-  config = function(_, opts)
-    require("Comment").setup(vim.tbl_deep_extend("force", {
+  opts = function()
+    return {
       pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
-    }, opts))
+    }
   end,
 }

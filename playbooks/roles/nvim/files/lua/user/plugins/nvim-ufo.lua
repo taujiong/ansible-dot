@@ -55,7 +55,7 @@ return {
       },
     },
     provider_selector = function(_, filetype, buftype)
-      if vim.tbl_contains({ "NeogitStatus", "NvimTree" }, filetype) then
+      if vim.tbl_contains({ "NeogitStatus", "NvimTree", "aerial" }, filetype) then
         return ""
       end
       if filetype == "" or buftype == "nofile" then

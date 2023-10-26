@@ -51,8 +51,7 @@ return {
     end,
   },
   config = function(_, opts)
-    local conform = require("conform")
-    conform.setup(opts)
+    require("conform").setup(opts)
 
     require("user.utils.mason").ensure_mason_package_installed({ "stylua", "prettierd" })
   end,
