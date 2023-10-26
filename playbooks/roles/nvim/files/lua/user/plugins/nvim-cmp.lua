@@ -81,12 +81,13 @@ return {
         end),
       }),
       formatting = {
-        fields = { "kind", "menu", "abbr" },
-        format = function(_, item)
+        fields = { "kind", "abbr", "menu" },
+        format = function(entry, item)
           local icons = require("user.icons").LspKind
           if icons[item.kind] then
             item.kind = icons[item.kind]
           end
+          item.menu = entry.source.name
           return item
         end,
       },
