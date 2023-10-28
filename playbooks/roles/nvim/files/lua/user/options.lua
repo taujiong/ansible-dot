@@ -43,7 +43,6 @@ local options = {
     signcolumn = "yes",
     virtualedit = "block",
     wrap = true,
-    conceallevel = 2,
     concealcursor = "n",
     -- bo
     expandtab = true,

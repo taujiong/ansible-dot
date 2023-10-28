@@ -29,10 +29,10 @@ return {
       html = { "prettierd" },
       css = { "prettierd" },
       json = { "prettierd" },
+      jsonc = { "prettierd" },
       yaml = { "prettierd" },
       markdown = { "prettierd" },
       graphql = { "prettierd" },
-      ["_"] = { "trim_whitespace" },
     },
     format_on_save = function(bufnr)
       -- Disable with a global or buffer-local variable
