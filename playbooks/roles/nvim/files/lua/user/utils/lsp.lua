@@ -192,7 +192,7 @@ local function get_server_lsp_opts(server_name)
       },
     },
   }
-  local capabilities = vim.tbl_deep_extend("keep", lsp_capabilities, cmp_capabilities, ufo_capabilities)
+  local capabilities = vim.tbl_deep_extend("force", lsp_capabilities, cmp_capabilities, ufo_capabilities)
 
   local server_settings = {}
   if server_name == "jsonls" then
