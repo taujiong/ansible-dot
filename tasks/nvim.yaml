@@ -8,7 +8,7 @@
   loop:
     - neovim
 
-- name: Link config
+- name: Link nvim config
   ansible.builtin.file:
     src: "{{ ansible_env.PWD }}/files/nvim"
     dest: ~/.config/nvim

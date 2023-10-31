@@ -5,10 +5,6 @@
       ansible.builtin.import_tasks:
         file: tasks/prepare.yaml
 
-    - name: Gather facts
-      ansible.builtin.import_tasks:
-        file: tasks/facts.yaml
-
     - name: Install common packages
       ansible.builtin.import_tasks:
         file: tasks/packages.yaml

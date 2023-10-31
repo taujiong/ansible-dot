@@ -1,6 +1,6 @@
 [user]
-  name = taujiong
-  email = taujiong@outlook.com
+  name = {{ ansible_facts["personal_name"] }}
+  email = {{  ansible_facts["personal_email"] }}
 [core]
   quotepath = false
 [init]

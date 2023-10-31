@@ -3,11 +3,11 @@
     name: volta
   when: ("volta" not in installed_brew_formulae)
 
-- name: Link .npmrc
-  ansible.builtin.file:
-    src: "{{ ansible_env.PWD }}/files/ecmascript/.npmrc"
+- name: Generate .npmrc
+  ansible.builtin.template:
+    src: "{{ ansible_env.PWD }}/files/ecmascript/.npmrc.j2"
     dest: ~/.npmrc
-    state: link
+    mode: "0755"
 
 - name: Gather installed volta tools
   ansible.builtin.command:

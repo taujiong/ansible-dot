@@ -1,14 +1,14 @@
-- name: Link .gitconfig
-  ansible.builtin.file:
-    src: "{{ ansible_env.PWD }}/files/git/.gitconfig"
+- name: Generate .gitconfig
+  ansible.builtin.template:
+    src: "{{ ansible_env.PWD }}/files/git/.gitconfig.j2"
     dest: ~/.gitconfig
-    state: link
+    mode: "0755"
 
 - name: Persistent git user info for work
-  ansible.builtin.file:
-    src: "{{ ansible_env.PWD }}/files/git/.gitconfig_work"
+  ansible.builtin.template:
+    src: "{{ ansible_env.PWD }}/files/git/.gitconfig_work.j2"
     dest: ~/.gitconfig_work
-    state: link
+    mode: "0755"
 
 - name: Install git tools
   community.general.homebrew:
