@@ -5,6 +5,6 @@
 
 - name: Link config
   ansible.builtin.file:
-    src: '{{ ansible_env.PWD }}/roles/kitty/files'
+    src: "{{ ansible_env.PWD }}/files/kitty"
     dest: ~/.config/kitty
     state: link

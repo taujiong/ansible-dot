@@ -1,6 +1,6 @@
 - name: Link .zshrc
   ansible.builtin.file:
-    src: "{{ ansible_env.PWD }}/roles/shell/files/.zshrc"
+    src: "{{ ansible_env.PWD }}/files/shell/.zshrc"
     dest: ~/.zshrc
     state: link
 

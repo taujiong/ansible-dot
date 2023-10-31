@@ -1,9 +1,0 @@
-- name: Setup
-  hosts: localhost
-  roles:
-    - system
-    - nvim
-    - git
-    - kitty
-    - shell
-    - lang

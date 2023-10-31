@@ -31,6 +31,7 @@ return {
     mason_lspconfig = {
       automatic_installation = true,
       ensure_installed = {
+        "ansiblels",
         "eslint",
         "jsonls",
         "lua_ls",

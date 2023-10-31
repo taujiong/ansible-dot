@@ -21,6 +21,6 @@ command_exist ansible || {
 
 # run ansible
 echo "bootstrap with ansible"
-ansible-playbook ./playbooks/setup.yml -i inventory
+ansible-playbook -i inventory.yaml ./playbook.yaml
 
 echo "Mission Complete!"

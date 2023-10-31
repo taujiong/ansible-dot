@@ -1,3 +1,0 @@
-- name: Setup language tools
-  ansible.builtin.import_tasks:
-    file: ecmascript.yml

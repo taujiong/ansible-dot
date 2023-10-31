@@ -1,0 +1,34 @@
+- name: Setup macos
+  hosts: localhost
+  tasks:
+    - name: Prepare
+      ansible.builtin.import_tasks:
+        file: tasks/prepare.yaml
+
+    - name: Gather facts
+      ansible.builtin.import_tasks:
+        file: tasks/facts.yaml
+
+    - name: Install common packages
+      ansible.builtin.import_tasks:
+        file: tasks/packages.yaml
+
+    - name: Configure shell
+      ansible.builtin.import_tasks:
+        file: tasks/shell.yaml
+
+    - name: Configure nvim
+      ansible.builtin.import_tasks:
+        file: tasks/nvim.yaml
+
+    - name: Configure kitty
+      ansible.builtin.import_tasks:
+        file: tasks/kitty.yaml
+
+    - name: Configure git
+      ansible.builtin.import_tasks:
+        file: tasks/git.yaml
+
+    - name: Configure ecmascript
+      ansible.builtin.import_tasks:
+        file: tasks/ecmascript.yaml

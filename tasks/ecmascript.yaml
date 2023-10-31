@@ -5,7 +5,7 @@
 
 - name: Link .npmrc
   ansible.builtin.file:
-    src: "{{ ansible_env.PWD }}/roles/lang/files/.npmrc"
+    src: "{{ ansible_env.PWD }}/files/ecmascript/.npmrc"
     dest: ~/.npmrc
     state: link
 
@@ -18,9 +18,8 @@
 - name: Install global tools
   ansible.builtin.command:
     cmd: "volta install {{ item }}"
-  ignore_errors: true
   when: item not in installed_volta_tools.stdout
+  changed_when: item not in installed_volta_tools.stdout
   loop:
     - node
     - pnpm
-    - "@cloudmusic-desktop/cli"

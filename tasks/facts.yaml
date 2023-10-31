@@ -1,0 +1,20 @@
+- name: Gather installed homebrew formulae
+  ansible.builtin.command:
+    cmd: brew list --formula
+  register: installed_brew_formulae
+  changed_when: false
+
+- name: Gather installed homebrew casks
+  ansible.builtin.command:
+    cmd: brew list --cask
+  register: installed_brew_casks
+  changed_when: false
+
+- name: Have access to workspace network
+  ansible.builtin.uri:
+    url: http://rnpm.hz.netease.com
+  register: workspace_net_access
+
+- name: Debug
+  ansible.builtin.debug:
+    var: workspace_net_access
