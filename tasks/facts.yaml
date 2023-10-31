@@ -1,20 +1,26 @@
-- name: Gather installed homebrew formulae
+- name: List installed homebrew formulae
   ansible.builtin.command:
     cmd: brew list --formula
-  register: installed_brew_formulae
+  register: brew_formula_list_output
   changed_when: false
 
-- name: Gather installed homebrew casks
+- name: List installed homebrew casks
   ansible.builtin.command:
     cmd: brew list --cask
-  register: installed_brew_casks
+  register: brew_cask_list_output
   changed_when: false
 
-- name: Have access to workspace network
+- name: Fetch url at work
   ansible.builtin.uri:
     url: http://rnpm.hz.netease.com
+    status_code:
+      - 200
+      - 403
   register: workspace_net_access
 
-- name: Debug
-  ansible.builtin.debug:
-    var: workspace_net_access
+- name: Set facts
+  ansible.builtin.set_fact:
+    cacheable: true
+    with_workspace_net: "{{ workspace_net_access.status == 200 }}"
+    installed_brew_formulae: "{{ brew_formula_list_output.stdout_lines }}"
+    installed_brew_casks: "{{ brew_cask_list_output.stdout_lines }}"

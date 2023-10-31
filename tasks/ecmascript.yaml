@@ -1,7 +1,7 @@
 - name: Install volta
   community.general.homebrew:
     name: volta
-  when: ("volta" not in installed_brew_formulae.stdout_lines)
+  when: ("volta" not in installed_brew_formulae)
 
 - name: Link .npmrc
   ansible.builtin.file:

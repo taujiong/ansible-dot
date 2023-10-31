@@ -7,7 +7,7 @@
 - name: Install zsh plugins
   community.general.homebrew:
     name: "{{ item }}"
-  when: item not in installed_brew_formulae.stdout_lines
+  when: item not in installed_brew_formulae
   loop:
     - autojump
     - zsh-syntax-highlighting

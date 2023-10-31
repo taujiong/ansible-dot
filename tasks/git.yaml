@@ -13,6 +13,6 @@
 - name: Install git tools
   community.general.homebrew:
     name: "{{ item }}"
-  when: item not in installed_brew_formulae.stdout_lines
+  when: item not in installed_brew_formulae
   loop:
     - gh

@@ -1,7 +1,7 @@
 - name: Install kitty
   community.general.homebrew_cask:
     name: kitty
-  when: ("kitty" not in installed_brew_casks.stdout_lines)
+  when: ("kitty" not in installed_brew_casks)
 
 - name: Link config
   ansible.builtin.file:

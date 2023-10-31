@@ -4,7 +4,7 @@
     options:
       - head
 
-  when: item not in installed_brew_formulae.stdout_lines
+  when: item not in installed_brew_formulae
   loop:
     - neovim
 
