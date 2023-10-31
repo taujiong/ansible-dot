@@ -39,7 +39,3 @@ augroup ansible_vim_ftjinja2
     au!
     au BufNewFile,BufRead *.j2 call s:setupTemplate()
 augroup END
-augroup ansible_vim_fthosts
-    au!
-    au BufNewFile,BufRead hosts set ft=ansible_hosts
-augroup END
