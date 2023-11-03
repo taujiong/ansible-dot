@@ -1,0 +1,19 @@
+- name: Install terminals
+  community.general.homebrew_cask:
+    name: "{{ item }}"
+  when: item not in installed_brew_casks
+  loop:
+    - kitty
+    - wezterm
+
+- name: Link kitty config
+  ansible.builtin.file:
+    src: "{{ ansible_env.PWD }}/files/kitty"
+    dest: ~/.config/kitty
+    state: link
+
+- name: Link wezterm config
+  ansible.builtin.file:
+    src: "{{ ansible_env.PWD }}/files/wezterm"
+    dest: ~/.config/wezterm
+    state: link

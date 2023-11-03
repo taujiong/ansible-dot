@@ -17,9 +17,9 @@
       ansible.builtin.import_tasks:
         file: tasks/nvim.yaml
 
-    - name: Configure kitty
+    - name: Configure terminal
       ansible.builtin.import_tasks:
-        file: tasks/kitty.yaml
+        file: tasks/terminal.yaml
 
     - name: Configure git
       ansible.builtin.import_tasks:
