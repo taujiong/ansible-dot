@@ -1,14 +1,10 @@
 {
   "lspconfig": {
     "lua_ls": {
-      "Lua.completion.callSnippet": "Replace",
+      "Lua.completion.callSnippet": "Disable",
       "Lua.hint.enable": true,
-      "Lua.workspace.checkThirdParty": false,
-      "Lua.format.defaultConfig": {
-        "quote_style": "double",
-        "end_of_line": "lf",
-        "table_separator_style": "comma"
-      }
+      "Lua.format.enable": false,
+      "Lua.workspace.checkThirdParty": false
     }
   }
 }
