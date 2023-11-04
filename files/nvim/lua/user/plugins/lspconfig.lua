@@ -41,8 +41,8 @@ return {
     },
   },
   config = function(_, opts)
-    require("neodev").setup(opts.neodev)
     require("neoconf").setup(opts.neoconf)
+    require("neodev").setup(opts.neodev)
     require("mason").setup(opts.mason)
     require("mason-lspconfig").setup(opts.mason_lspconfig)
     require("user.utils.lsp").setup()

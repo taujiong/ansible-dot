@@ -1,7 +1,0 @@
-{
-  "neodev": {
-    "library": {
-      "plugins": ["~/.hammerspoon/Spoons/EmmyLua.spoon/annotations"]
-    }
-  }
-}
