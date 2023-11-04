@@ -4,7 +4,4 @@ Thumbs.db
 
 # generated artifacts
 secrets
-
-# installed spoons
-files/hammerspoon/Spoons/*
-!files/hammerspoon/Spoons/SpoonInstall.spoon
+files/hammerspoon/Spoons/EmmyLua.spoon/annotations

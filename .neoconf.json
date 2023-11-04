@@ -3,7 +3,7 @@
     "lua_ls": {
       "Lua.workspace.library": [
         "~/.hammerspoon/Spoons/EmmyLua.spoon/annotations",
-        "~/.config/wezterm/types"
+        "~/.config/wezterm/annotations"
       ]
     }
   }
