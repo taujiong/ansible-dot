@@ -59,15 +59,31 @@ function M.processItem(item)
   for _, note in ipairs(item.notes or {}) do
     io.write("\n---" .. note)
   end
-  for _, param in ipairs(item.parameters or {}) do
-    io.write("\n---@param " .. param)
-  end
-  for _, ret in ipairs(item.returns or {}) do
-    if ret ~= " * None" then
-      io.write("\n---@return " .. ret)
+  if item.type == "Function" then
+    local params = hs.fnutils.imap(item.parameters or {}, function(param)
+      local name, desc = string.match(param, "%s*(%a+)%s*-%s*(.+)")
+      return {
+        name = name,
+        desc = desc,
+      }
+    end)
+    local signature = ""
+    for _, param in ipairs(params or {}) do
+      io.write(string.format("\n---@param %s any %s", param.name, param.desc))
+      if signature == "" then
+        signature = param.name
+      else
+        signature = signature .. ", " .. param.name
+      end
     end
+    for i, ret in ipairs(item.returns or {}) do
+      local desc = string.match(ret, "%s*%*%s*(.+)")
+      if string.lower(desc) ~= "none" then
+        io.write(string.format("\n---@return any ret%d %s", i, desc))
+      end
+    end
+    io.write(string.format("\nfunction M.%s(%s) end\n", item.name, signature))
   end
-  io.write("\nfunction M." .. item.name .. "() end\n")
 end
 
 ---generate lua annotations for single module
