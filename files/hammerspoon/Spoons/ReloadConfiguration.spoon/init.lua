@@ -34,14 +34,13 @@ function M:reload(paths)
   local shouldReload = hs.fnutils.some(paths, function(path)
     local fullPath = hs.fs.urlFromPath(path)
     if not fullPath then
-      hs.alert.show("Invalid path found: " .. path)
-      return false
-    else
-      return hs.fnutils.every(self.config.ignorePaths, function(ignorePath)
-        local start = fullPath:find(ignorePath, nil, true)
-        return not start
-      end)
+      error("Invalid path found: " .. path)
     end
+
+    return hs.fnutils.every(self.config.ignorePaths, function(ignorePath)
+      local start = fullPath:find(ignorePath, nil, true)
+      return not start
+    end)
   end)
 
   if shouldReload then
