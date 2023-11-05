@@ -2,19 +2,19 @@
 
 ---@class WezTerm
 local wezterm = {
-  ---@module 'wezterm.color'
+  ---@module 'color'
   color = {},
 
-  ---@module 'wezterm.gui'
+  ---@module 'gui'
   gui = {},
 
-  ---@module 'wezterm.mux'
+  ---@module 'mux'
   mux = {},
 
-  ---@module 'wezterm.procinfo'
+  ---@module 'procinfo'
   procinfo = {},
 
-  ---@module 'wezterm.time'
+  ---@module 'time'
   time = {},
 
   ---@type table<string, any>
