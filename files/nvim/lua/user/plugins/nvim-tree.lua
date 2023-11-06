@@ -15,6 +15,11 @@ return {
     auto_reload_on_write = false,
     disable_netrw = true,
     hijack_unnamed_buffer_when_opening = true,
+    ui = {
+      confirm = {
+        default_yes = true,
+      },
+    },
     renderer = {
       full_name = true,
       indent_width = 1,
