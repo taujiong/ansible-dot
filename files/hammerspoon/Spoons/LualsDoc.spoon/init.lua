@@ -1,9 +1,10 @@
----@alias HsMetaType "Function" | "Variable" | "Constant" | "Module"
+---@alias HsMetaType "Function" | "Variable" | "Constant" | "Module" | "Constructor" | "Method"
 
 ---@class HsItemMeta
 ---@field name string
 ---@field type HsMetaType
 ---@field desc string
+---@field doc string
 ---@field notes string[] | nil
 ---@field parameters string[] | nil
 ---@field returns string[] | nil
@@ -50,51 +51,91 @@ function M:genDocForSpoons()
   io.close(fd)
 end
 
+---convert into comment string
+---@param str string raw string
+---@param noCommentPrefix? boolean do not add comment prefix
+---@param noTrailingNewline? boolean dot not add trailing new line
+---@return string commented commented string
+function M.comment(str, noCommentPrefix, noTrailingNewline)
+  local commentStr = "--"
+  local prefix = noCommentPrefix and "" or commentStr .. " "
+  local trailing = noTrailingNewline and "" or "\n"
+  return prefix .. str:gsub("[\n]", "\n" .. commentStr .. " "):gsub("%s+\n", "\n") .. trailing
+end
+
 ---generate lua annotations for module item
+---@package
 ---@param item HsItemMeta
 function M.processItem(item)
-  if item.desc then
-    io.write("\n---" .. item.desc)
+  -- write summary
+  local summary = item.desc
+  if item.type == "Constant" or item.type == "Variable" then
+    summary = item.doc
   end
+  if summary then
+    io.write(M.comment(summary))
+  end
+
+  -- write extra note
   for _, note in ipairs(item.notes or {}) do
-    io.write("\n---" .. note)
+    io.write(M.comment(note))
   end
-  if item.type == "Function" then
-    local params = hs.fnutils.imap(item.parameters or {}, function(param)
-      local name, desc = string.match(param, "%s*(%a+)%s*-%s*(.+)")
-      return {
-        name = name,
-        desc = desc,
-      }
-    end)
-    local signature = ""
-    for _, param in ipairs(params or {}) do
-      io.write(string.format("\n---@param %s any %s", param.name, param.desc))
+
+  -- write params
+  local params = hs.fnutils.imap(item.parameters or {}, function(param)
+    local name, desc = string.match(param, "%s*(%a+)%s*-%s*(.+)")
+    if name == "end" then
+      name = "_end"
+    end
+    return {
+      name = name,
+      desc = desc,
+    }
+  end)
+  local signature = ""
+  for _, param in ipairs(params or {}) do
+    if param.name and param.desc then
+      io.write(string.format("---@param %s any %s\n", param.name, M.comment(param.desc, true, true)))
       if signature == "" then
         signature = param.name
       else
         signature = signature .. ", " .. param.name
       end
     end
-    for i, ret in ipairs(item.returns or {}) do
-      local desc = string.match(ret, "%s*%*%s*(.+)")
-      if string.lower(desc) ~= "none" then
-        io.write(string.format("\n---@return any ret%d %s", i, desc))
-      end
+  end
+
+  -- write returns
+  for i, ret in ipairs(item.returns or {}) do
+    local desc = string.match(ret, "%s*%*%s*(.+)")
+    if not desc then
+      io.write(M.comment(ret))
+    elseif string.lower(desc) ~= "none" then
+      io.write(string.format("---@return any ret%d %s\n", i, desc))
     end
-    io.write(string.format("\nfunction M.%s(%s) end\n", item.name, signature))
+  end
+
+  -- write signature
+  if item.type == "Function" or item.type == "Constructor" then
+    io.write(string.format("function M.%s(%s) end\n", item.name, signature))
+  elseif item.type == "Method" then
+    io.write(string.format("function M:%s(%s) end\n", item.name, signature))
+  else
+    io.write(string.format("M.%s = nil\n", item.name))
   end
 end
 
 ---generate lua annotations for single module
+---@package
 ---@param module HsModuleMeta
 function M.processModule(module)
+  io.write("---@diagnostic disable: unused-local\n\n")
   io.write("-- " .. module.desc .. "\n")
   io.write("---@class " .. module.name .. "\n")
   io.write("local M = {}\n")
   io.write(module.name .. " = M\n")
 
   for _, item in ipairs(module.items) do
+    io.write("\n")
     M.processItem(item)
   end
 end
@@ -113,18 +154,16 @@ function M:genDocForHammerspoon()
     if module.type ~= "Module" then
       error("Expected a module, but found type=" .. module.type)
     end
-    if module.name == "hs.alert" then
-      local fname = string.format("%s/%s.lua", self.config.annotationPath, module.name)
-      local fmtime = hs.fs.attributes(fname, "modification")
-      if fmtime == nil or mtime <= fmtime then
-        local fd, err = io.open(fname, "w+")
-        if not fd or err then
-          error(string.format("Fail to open file '%s': %s", fname, err))
-        end
-        io.output(fd)
-        M.processModule(module)
-        io.close(fd)
+    local fname = string.format("%s/%s.lua", self.config.annotationPath, module.name)
+    local fmtime = hs.fs.attributes(fname, "modification")
+    if fmtime == nil or mtime > fmtime then
+      local fd, err = io.open(fname, "w+")
+      if not fd or err then
+        error(string.format("Fail to open file '%s': %s", fname, err))
       end
+      io.output(fd)
+      M.processModule(module)
+      io.close(fd)
     end
   end
 end
