@@ -143,7 +143,7 @@ function M.processModule(module)
   io.write("-- " .. module.desc .. "\n")
   io.write("---@class " .. module.name .. "\n")
   for _, field in ipairs(module.submodules) do
-    io.write(string.format("---@field %s hs.%s\n", field, field))
+    io.write(string.format("---@field %s %s.%s\n", field, module.name, field))
   end
   io.write("local M = {}\n")
   io.write(module.name .. " = M\n")
