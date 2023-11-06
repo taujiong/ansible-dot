@@ -24,9 +24,10 @@ end
 
 ---reload configuration when the hammerspoon configdir changed
 ---@param paths? string[] content changed paths
+---@param flags? table<string, boolean>[] content change meta
 ---@return ReloadConfigurationSpoon
-function M:reload(paths)
-  if not paths then
+function M:reload(paths, flags)
+  if not paths or not flags then
     hs.reload()
     return self
   end
@@ -35,6 +36,13 @@ function M:reload(paths)
     local fullPath = hs.fs.urlFromPath(path)
     if not fullPath then
       error("Invalid path found: " .. path)
+    end
+
+    local isCreateEvent = hs.fnutils.every(flags, function(flag)
+      return flag.itemCreated
+    end)
+    if isCreateEvent then
+      return false
     end
 
     return hs.fnutils.every(self.config.ignorePaths, function(ignorePath)
