@@ -12,6 +12,7 @@
 ---@class HsModuleMeta
 ---@field name string
 ---@field type HsMetaType
+---@field submodules string[]
 ---@field desc string
 ---@field items HsItemMeta[]
 
@@ -22,6 +23,8 @@ local M = {}
 
 ---@class LualsDocSpoon.Config
 ---@field annotationPath string dir to write lua type annotations
+---@field reservedKeywords string[] reserved keywords in function param
+---@field disabledDiagnostics string[] disabled diagnostic rules
 M.config = {}
 
 ---generate lua annotations for installed spoons
@@ -66,7 +69,8 @@ end
 ---generate lua annotations for module item
 ---@package
 ---@param item HsItemMeta
-function M.processItem(item)
+---@param module HsModuleMeta
+function M.processItem(item, module)
   -- write summary
   local summary = item.desc
   if item.type == "Constant" or item.type == "Variable" then
@@ -84,8 +88,8 @@ function M.processItem(item)
   -- write params
   local params = hs.fnutils.imap(item.parameters or {}, function(param)
     local name, desc = string.match(param, "%s*(%a+)%s*-%s*(.+)")
-    if name == "end" then
-      name = "_end"
+    if hs.fnutils.contains(M.config.reservedKeywords, name) then
+      name = "_" .. name
     end
     return {
       name = name,
@@ -110,12 +114,13 @@ function M.processItem(item)
     if not desc then
       io.write(M.comment(ret))
     elseif string.lower(desc) ~= "none" then
-      io.write(string.format("---@return any ret%d %s\n", i, desc))
+      local returnType = item.type == "Constructor" and module.name or "any"
+      io.write(string.format("---@return %s ret%d %s\n", returnType, i, desc))
     end
   end
 
   -- write signature
-  if item.type == "Function" or item.type == "Constructor" then
+  if item.type == "Function" or item.type == "Constructor" or signature ~= "" then
     io.write(string.format("function M.%s(%s) end\n", item.name, signature))
   elseif item.type == "Method" then
     io.write(string.format("function M:%s(%s) end\n", item.name, signature))
@@ -128,15 +133,24 @@ end
 ---@package
 ---@param module HsModuleMeta
 function M.processModule(module)
-  io.write("---@diagnostic disable: unused-local\n\n")
+  -- write disgnostic disable rules
+  for _, rule in ipairs(M.config.disabledDiagnostics) do
+    io.write(string.format("---@diagnostic disable: %s\n", rule))
+  end
+  io.write("\n")
+
+  -- write module definition
   io.write("-- " .. module.desc .. "\n")
   io.write("---@class " .. module.name .. "\n")
+  for _, field in ipairs(module.submodules) do
+    io.write(string.format("---@field %s hs.%s\n", field, field))
+  end
   io.write("local M = {}\n")
   io.write(module.name .. " = M\n")
 
   for _, item in ipairs(module.items) do
     io.write("\n")
-    M.processItem(item)
+    M.processItem(item, module)
   end
 end
 
@@ -177,6 +191,8 @@ end
 function M:init()
   self.config = {
     annotationPath = hs.spoons.resourcePath("../../annotations"),
+    reservedKeywords = { "end", "function" },
+    disabledDiagnostics = { "inject-field", "missing-return", "unused-local" },
   }
 end
 
