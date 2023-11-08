@@ -3,8 +3,7 @@
     name: "homebrew/cask-fonts/{{ item }}"
   when: item not in installed_brew_casks
   loop:
-    - font-fira-code-nerd-font
-    - font-hack-nerd-font
+    - font-jetbrains-mono-nerd-font
 
 - name: Install ui apps
   community.general.homebrew_cask:
