@@ -13,10 +13,6 @@
       ansible.builtin.import_tasks:
         file: tasks/terminal.yaml
 
-    - name: Configure shell
-      ansible.builtin.import_tasks:
-        file: tasks/shell.yaml
-
     - name: Configure nvim
       ansible.builtin.import_tasks:
         file: tasks/nvim.yaml

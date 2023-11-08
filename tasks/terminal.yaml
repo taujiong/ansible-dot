@@ -4,7 +4,6 @@
   when: item not in installed_brew_casks
   loop:
     - kitty
-    - wezterm
 
 - name: Link kitty config
   ansible.builtin.file:
@@ -12,8 +11,25 @@
     dest: ~/.config/kitty
     state: link
 
-- name: Link wezterm config
+- name: Install modern cli tools
+  community.general.homebrew:
+    name: "{{ item }}"
+  when: item not in installed_brew_formulae
+  loop:
+    - fd
+    - ripgrep
+
+- name: Link .zshrc
   ansible.builtin.file:
-    src: "{{ ansible_env.PWD }}/files/wezterm"
-    dest: ~/.config/wezterm
+    src: "{{ ansible_env.PWD }}/files/shell/.zshrc"
+    dest: ~/.zshrc
     state: link
+
+- name: Install zsh plugins
+  community.general.homebrew:
+    name: "{{ item }}"
+  when: item not in installed_brew_formulae
+  loop:
+    - autojump
+    - zsh-syntax-highlighting
+    - zsh-autosuggestions

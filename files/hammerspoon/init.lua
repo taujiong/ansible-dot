@@ -6,7 +6,10 @@ spoon.LualsDoc:start()
 
 spoon.ReloadConfiguration
   :setConfig({
-    ignorePaths = { spoon.LualsDoc.config.annotationPath },
+    ignorePaths = {
+      spoon.LualsDoc.config.annotationPath,
+      hs.configdir .. "/stylua.toml",
+    },
   })
   :bindHotkeys({
     reload = { { "shift", "ctrl" }, "R" },
