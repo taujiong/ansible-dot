@@ -1,6 +1,7 @@
 ---@type LazySpec
 return {
   "mrjones2014/smart-splits.nvim",
+  lazy = false,
   keys = {
     {
       "<c-h>",
