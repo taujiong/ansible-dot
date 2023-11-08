@@ -41,6 +41,7 @@ return {
     },
   },
   config = function(_, opts)
+    require("lspconfig.ui.windows").default_options.border = "rounded"
     require("neoconf").setup(opts.neoconf)
     require("neodev").setup(opts.neodev)
     require("mason").setup(opts.mason)
