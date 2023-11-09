@@ -1,30 +1,49 @@
 local wezterm = require("wezterm")
+local util = require("util")
+local action = wezterm.action
 local M = {}
 
 ---@type _.wezterm.KeyBinding[]
 M.mappings = {
-  { key = "w", mods = "SUPER", action = wezterm.action.CloseCurrentPane({ confirm = true }) },
-  { key = "t", mods = "SUPER", action = wezterm.action.SpawnTab("CurrentPaneDomain") },
-  { key = "n", mods = "SUPER", action = wezterm.action.SpawnWindow },
-  { key = "c", mods = "SUPER", action = wezterm.action.CopyTo("Clipboard") },
-  { key = "v", mods = "SUPER", action = wezterm.action.PasteFrom("Clipboard") },
-  { key = "=", mods = "SUPER", action = wezterm.action.IncreaseFontSize },
-  { key = "-", mods = "SUPER", action = wezterm.action.DecreaseFontSize },
-  { key = "]", mods = "SUPER", action = wezterm.action.ActivateTabRelative(1) },
-  { key = "[", mods = "SUPER", action = wezterm.action.ActivateTabRelative(-1) },
+  -- window management
+  { key = "n", mods = "SUPER", action = action.SpawnWindow },
+  { key = "=", mods = "SUPER", action = action.IncreaseFontSize },
+  { key = "-", mods = "SUPER", action = action.DecreaseFontSize },
+  -- tab management
+  { key = "t", mods = "SUPER", action = action.SpawnTab("CurrentPaneDomain") },
+  { key = "]", mods = "SUPER", action = action.ActivateTabRelative(1) },
+  { key = "[", mods = "SUPER", action = action.ActivateTabRelative(-1) },
+  { key = ".", mods = "SUPER", action = action.MoveTabRelative(1) },
+  { key = ",", mods = "SUPER", action = action.MoveTabRelative(-1) },
+  -- pane management
+  { key = "w", mods = "SUPER", action = action.CloseCurrentPane({ confirm = true }) },
+  { key = "z", mods = "CTRL|SHIFT", action = action.TogglePaneZoomState },
+  { key = "d", mods = "SUPER", action = action.ScrollByLine(10) },
+  { key = "u", mods = "SUPER", action = action.ScrollByLine(-10) },
+  {
+    key = "s",
+    mods = "SUPER",
+    action = wezterm.action_callback(function(win, pane)
+      if util.isVim(pane) then
+        win:perform_action({ SendKey = { key = "s", mods = "CTRL" } }, pane)
+      end
+    end),
+  },
+  -- global
+  { key = "c", mods = "SUPER", action = action.CopyTo("Clipboard") },
+  { key = "v", mods = "SUPER", action = action.PasteFrom("Clipboard") },
+  { key = "f", mods = "SUPER", action = action.Search({ CaseInSensitiveString = "" }) },
+  { key = "c", mods = "CTRL|SHIFT", action = action.ActivateCopyMode },
+  { key = "f", mods = "CTRL|SHIFT", action = action.QuickSelect },
+  { key = "p", mods = "CTRL|SHIFT", action = action.ActivateCommandPalette },
+  { key = "l", mods = "CTRL|SHIFT", action = action.ShowDebugOverlay },
 }
 
 ---update final config
 ---@param config _.wezterm.ConfigBuilder
 function M.config(config)
   config.disable_default_key_bindings = true
-  if not config.keys then
-    config.keys = M.mappings
-  else
-    for _, keybinding in pairs(M.mappings) do
-      table.insert(config.keys, keybinding)
-    end
-  end
+  config.keys = util.mergeList(config.keys, M.mappings)
 end
 
 return M

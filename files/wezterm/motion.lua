@@ -1,11 +1,6 @@
 local wezterm = require("wezterm")
+local util = require("util")
 local M = {}
-
----check whether the pane is running vim
----@param pane _.wezterm.Pane wezterm pane
-function M.isVim(pane)
-  return pane:get_user_vars().IS_NVIM == "true"
-end
 
 M.directionMap = {
   h = "Left",
@@ -26,7 +21,7 @@ function M.genNavKeys()
         key = key,
         mods = mods,
         action = wezterm.action_callback(function(win, pane)
-          if M.isVim(pane) then
+          if util.isVim(pane) then
             win:perform_action({ SendKey = { key = key, mods = mods } }, pane)
           else
             if mode == "resize" then
@@ -53,13 +48,7 @@ end
 ---@param config _.wezterm.ConfigBuilder
 function M.config(config)
   local keys = M.genNavKeys()
-  if not config.keys then
-    config.keys = keys
-  else
-    for _, key in ipairs(keys) do
-      table.insert(config.keys, key)
-    end
-  end
+  config.keys = util.mergeList(config.keys, keys)
 end
 
 return M
