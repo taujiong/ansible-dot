@@ -1,26 +1,15 @@
+local util = require("util")
+
 ---@class ReloadConfigurationSpoon
 local M = {}
 
 ---@class ReloadConfigurationSpoon.Config
----@field ignorePaths string[] paths whose changes will not trigger reload
-M.config = {}
-
----update default config
----@param config ReloadConfigurationSpoon.Config
----@return ReloadConfigurationSpoon
-function M:setConfig(config)
-  if config.ignorePaths then
-    config.ignorePaths = hs.fnutils.imap(config.ignorePaths, function(ignorePath)
-      return hs.fs.urlFromPath(ignorePath)
-    end)
-  end
-
-  for key, value in pairs(config) do
-    self.config[key] = value
-  end
-
-  return self
-end
+M.config = {
+  ignorePaths = {
+    hs.fs.urlFromPath(hs.spoons.resourcePath("../../annotations")),
+    hs.fs.urlFromPath(hs.configdir .. "/stylua.toml"),
+  },
+}
 
 ---reload configuration when the hammerspoon configdir changed
 ---@param paths? string[] content changed paths
@@ -58,26 +47,10 @@ function M:reload(paths, flags)
   return self
 end
 
----bind hotkey
----@param mapping {reload: table}
----@return ReloadConfigurationSpoon
-function M:bindHotkeys(mapping)
-  local def = {
-    reload = hs.fnutils.partial(self.reload, self),
-  }
-  hs.spoons.bindHotkeysToSpec(def, mapping)
-  return self
-end
-
-function M:start()
+function M:init()
   self.watcher = hs.pathwatcher.new(hs.configdir, hs.fnutils.partial(self.reload, self))
   self.watcher:start()
-end
-
-function M:init()
-  self.config = {
-    ignorePaths = {},
-  }
+  hs.hotkey.bind(util.hyper, "r", nil, hs.fnutils.partial(self.reload, self))
 end
 
 return M

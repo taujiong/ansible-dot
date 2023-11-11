@@ -11,5 +11,18 @@
       "\topts = {${0}},",
       "}"
     ]
+  },
+  "Spoon Template": {
+    "prefix": ["Spoon"],
+    "description": "create hammerspoon spoon definition",
+    "body": [
+      "local util = require(\"util\")\n",
+      "---@class ${1:sppon name}Spoon",
+      "local M = {}\n",
+      "---@class ${1:spoon name}Spoon.Config",
+      "M.config = {}\n",
+      "function M:init() ${0} end\n",
+      "return M"
+    ]
   }
 }

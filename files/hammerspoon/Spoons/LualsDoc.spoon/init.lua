@@ -22,10 +22,11 @@
 local M = {}
 
 ---@class LualsDocSpoon.Config
----@field annotationPath string dir to write lua type annotations
----@field reservedKeywords string[] reserved keywords in function param
----@field disabledDiagnostics string[] disabled diagnostic rules
-M.config = {}
+M.config = {
+  annotationPath = hs.spoons.resourcePath("../../annotations"),
+  reservedKeywords = { "end", "function" },
+  disabledDiagnostics = { "inject-field", "missing-return", "unused-local" },
+}
 
 ---generate lua annotations for installed spoons
 ---@package
@@ -182,18 +183,10 @@ function M:genDocForHammerspoon()
   end
 end
 
-function M:start()
+function M:init()
   hs.fs.mkdir(self.config.annotationPath)
   M:genDocForSpoons()
   M:genDocForHammerspoon()
-end
-
-function M:init()
-  self.config = {
-    annotationPath = hs.spoons.resourcePath("../../annotations"),
-    reservedKeywords = { "end", "function" },
-    disabledDiagnostics = { "inject-field", "missing-return", "unused-local" },
-  }
 end
 
 return M
