@@ -121,10 +121,10 @@ function M.processItem(item, module)
   end
 
   -- write signature
-  if item.type == "Function" or item.type == "Constructor" or signature ~= "" then
-    io.write(string.format("function M.%s(%s) end\n", item.name, signature))
-  elseif item.type == "Method" then
+  if item.type == "Method" then
     io.write(string.format("function M:%s(%s) end\n", item.name, signature))
+  elseif item.type == "Function" or item.type == "Constructor" or signature ~= "" then
+    io.write(string.format("function M.%s(%s) end\n", item.name, signature))
   else
     io.write(string.format("M.%s = nil\n", item.name))
   end
