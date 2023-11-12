@@ -88,7 +88,7 @@ function M.processItem(item, module)
 
   -- write params
   local params = hs.fnutils.imap(item.parameters or {}, function(param)
-    local name, desc = string.match(param, "%s*(%a+)%s*-%s*(.+)")
+    local name, desc = string.match(param, "%s*`*(%a+)`*%s*-%s*(.+)")
     if hs.fnutils.contains(M.config.reservedKeywords, name) then
       name = "_" .. name
     end
