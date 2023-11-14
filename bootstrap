@@ -7,22 +7,6 @@ function command_exist() {
   command -v "$1" &> /dev/null
 }
 
-function ensure_secret_exists() {
-  if [ ! -d secrets ]; then
-    mkdir secrets
-  fi
-  if [ ! -f secrets/$1 ]; then
-    read -p "What is your $2:" tmp
-    echo $tmp > secrets/$1
-  fi
-}
-
-ensure_secret_exists personal_name "personal name"
-ensure_secret_exists personal_email "personal email"
-ensure_secret_exists work_name "work name"
-ensure_secret_exists work_email "work email"
-ensure_secret_exists work_npm_registry "work npm registry"
-
 # ensure homebrew installed
 command_exist brew || {
   echo "brew not found, installing homebrew"

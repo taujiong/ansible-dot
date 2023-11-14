@@ -1,0 +1,9 @@
+[core]
+  ignoreCase = false
+  quotePath = false
+[init]
+  defaultBranch = main
+[includeIf "gitdir:~/Projects/work/"]
+  path = work
+[includeIf "gitdir:~/Projects/personal/"]
+  path = oss

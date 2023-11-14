@@ -1,9 +1,0 @@
-[user]
-  name = {{ ansible_facts["personal_name"] }}
-  email = {{  ansible_facts["personal_email"] }}
-[core]
-  quotepath = false
-[init]
-  defaultBranch = main
-[includeIf "gitdir:~/Projects/work/"]
-  path = .gitconfig_work

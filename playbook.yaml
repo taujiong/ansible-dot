@@ -1,30 +1,16 @@
 - name: Setup macos
   hosts: localhost
   tasks:
-    - name: Prepare
-      ansible.builtin.import_tasks:
-        file: tasks/prepare.yaml
+    - name: Set facts
+      ansible.builtin.set_fact:
+        cacheable: true
+        is_mac: ansible_facts['os_family'] == "Darwin"
 
-    - name: Install common packages
+    - name: Install brew packages
       ansible.builtin.import_tasks:
-        file: tasks/packages.yaml
+        file: tasks/brew-packages.yaml
+      when: is_mac
 
-    - name: Configure terminal
+    - name: Link config
       ansible.builtin.import_tasks:
-        file: tasks/terminal.yaml
-
-    - name: Configure nvim
-      ansible.builtin.import_tasks:
-        file: tasks/nvim.yaml
-
-    - name: Configure git
-      ansible.builtin.import_tasks:
-        file: tasks/git.yaml
-
-    - name: Configure ecmascript
-      ansible.builtin.import_tasks:
-        file: tasks/ecmascript.yaml
-
-    - name: Configure hammerspoon
-      ansible.builtin.import_tasks:
-        file: tasks/hammerspoon.yaml
+        file: tasks/config.yaml

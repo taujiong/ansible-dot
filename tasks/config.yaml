@@ -1,0 +1,41 @@
+- name: Ensure ~/.config exists
+  ansible.builtin.file:
+    path: ~/.config
+    state: directory
+    mode: "0755"
+
+- name: Link git config
+  ansible.builtin.file:
+    src: "{{ ansible_env.PWD }}/files/git"
+    dest: ~/.config/git
+    state: link
+
+- name: Link wezterm config
+  ansible.builtin.file:
+    src: "{{ ansible_env.PWD }}/files/wezterm"
+    dest: ~/.config/wezterm
+    state: link
+
+- name: Link .zshrc
+  ansible.builtin.file:
+    src: "{{ ansible_env.PWD }}/files/.zshrc"
+    dest: ~/.zshrc
+    state: link
+
+- name: Link hammerspoon config
+  ansible.builtin.file:
+    src: "{{ ansible_env.PWD }}/files/hammerspoon"
+    dest: ~/.hammerspoon
+    state: link
+
+- name: Link nvim config
+  ansible.builtin.file:
+    src: "{{ ansible_env.PWD }}/files/nvim"
+    dest: ~/.config/nvim
+    state: link
+
+- name: Link npm config
+  ansible.builtin.file:
+    src: "{{ ansible_env.PWD }}/files/.npmrc"
+    dest: ~/.npmrc
+    state: link

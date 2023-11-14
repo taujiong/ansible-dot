@@ -1,0 +1,65 @@
+- name: List installed homebrew casks
+  ansible.builtin.command:
+    cmd: brew list --cask
+  register: brew_cask_list_output
+  changed_when: false
+
+- name: Install nerd fonts
+  community.general.homebrew_cask:
+    name: "homebrew/cask-fonts/{{ item }}"
+  when: item not in brew_cask_list_output.stdout_lines
+  loop:
+    - font-jetbrains-mono-nerd-font
+
+- name: Install brew casks
+  community.general.homebrew_cask:
+    name: "{{ item }}"
+  when: item not in brew_cask_list_output.stdout_lines
+  async: 0
+  poll: 0
+  loop:
+    - qlimagesize
+    - qlmarkdown
+    - qlvideo
+    - quicklook-json
+    - microsoft-edge
+    - raycast
+    - snipaste
+    - visual-studio-code
+    - wezterm
+    - hammerspoon
+
+- name: List installed homebrew formulae
+  ansible.builtin.command:
+    cmd: brew list --formula
+  register: brew_formula_list_output
+  changed_when: false
+
+- name: Install zsh plugins
+  community.general.homebrew:
+    name: "{{ item }}"
+  when: item not in brew_formula_list_output.stdout_lines
+  loop:
+    - autojump
+    - zsh-syntax-highlighting
+    - zsh-autosuggestions
+
+- name: Install modern cli tools
+  community.general.homebrew:
+    name: "{{ item }}"
+  when: item not in brew_formula_list_output.stdout_lines
+  loop:
+    - gh
+    - fd
+    - ripgrep
+    - fzf
+    - volta
+
+- name: Install neovim prerelease
+  community.general.homebrew:
+    name: "{{ item }}"
+    options:
+      - head
+  when: item not in brew_formula_list_output.stdout_lines
+  loop:
+    - neovim
