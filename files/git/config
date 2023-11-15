@@ -1,7 +1,7 @@
 [core]
-  ignoreCase = false
   quotePath = false
 [init]
+  templateDir = ~/.config/git/templates
   defaultBranch = main
 [includeIf "gitdir:~/Work/"]
   path = work
