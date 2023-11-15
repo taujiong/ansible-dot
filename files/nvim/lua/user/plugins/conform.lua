@@ -41,7 +41,7 @@ return {
       end
       -- Disable autoformat for files in a certain path
       local bufname = vim.api.nvim_buf_get_name(bufnr)
-      if bufname:match("/node_modules/") then
+      if string.match(bufname, "/node_modules/") or string.match(bufname, "/music%-pc/") then
         return
       end
       return {

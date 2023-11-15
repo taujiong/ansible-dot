@@ -28,6 +28,12 @@
     - visual-studio-code
     - wezterm
     - hammerspoon
+    - xmind
+    - neteasemusic
+    - wechat
+    - logi-options-plus
+    - the-unarchiver
+    - tailscale
 
 - name: List installed homebrew formulae
   ansible.builtin.command:
@@ -40,7 +46,6 @@
     name: "{{ item }}"
   when: item not in brew_formula_list_output.stdout_lines
   loop:
-    - autojump
     - zsh-syntax-highlighting
     - zsh-autosuggestions
 
@@ -50,10 +55,16 @@
   when: item not in brew_formula_list_output.stdout_lines
   loop:
     - gh
+    - asdf
     - fd
     - ripgrep
     - fzf
-    - volta
+    - bat
+    - jq
+    - curlie
+    - git-delta
+    - zoxide
+    - joshuto
 
 - name: Install neovim prerelease
   community.general.homebrew:

@@ -3,7 +3,7 @@
   quotePath = false
 [init]
   defaultBranch = main
-[includeIf "gitdir:~/Projects/work/"]
+[includeIf "gitdir:~/Work/"]
   path = work
-[includeIf "gitdir:~/Projects/personal/"]
-  path = oss
+[includeIf "gitdir:~/Personal/"]
+  path = personal

@@ -6,7 +6,6 @@ autoload -Uz compinit && compinit
 eval "$(brew shellenv)"
 
 # setup zsh plugins
-source $HOMEBREW_PREFIX/etc/profile.d/autojump.sh
 source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
@@ -19,3 +18,13 @@ export EDITOR=$(which nvim)
 
 # export mason bins
 export PATH="$PATH:$HOME/.local/share/nvim/mason/bin"
+
+# setup bat
+alias cat=bat
+
+# setup lsd
+alias ls="lsd -l"
+
+# setup zoxide
+eval "$(zoxide init zsh)"
+alias cd=z
